@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+
+<head>
+    <meta charset="utf-8">
+    <title>Team Community - Al Fajjar Sports Complex</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/responsive.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/colors/color1.css" id="colors">
+    <link rel="stylesheet" type="text/css" href="stylesheets/community.css">
+    <link href="images/icon/favicon.png" rel="shortcut icon">
+</head>
+
+<body class="header-sticky community-page">
+    <div class="preload preload-container">
+        <div class="swapping-squares-spinner">
+            <div class="square"></div>
+            <div class="square"></div>
+            <div class="square"></div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="javascript/base.js" data-include="header"></script>
+
+    <main class="community-shell">
+        <div class="themeflat-container">
+            <header class="community-heading">
+                <div>
+                    <p class="community-kicker">Al Fajjar Sports Complex</p>
+                    <h1>Team Community</h1>
+                    <p class="community-intro">Find teams across every sport, explore their profiles, and start a conversation.</p>
+                </div>
+                <p class="community-demo-note">Local demo: directory and messages are stored in this browser only.</p>
+            </header>
+
+            <div class="community-tabs" role="tablist" aria-label="Community views">
+                <button type="button" class="community-tab active" role="tab" aria-selected="true" data-community-tab="directory">Team directory</button>
+                <button type="button" class="community-tab" role="tab" aria-selected="false" data-community-tab="chats">Messages <span data-chat-count>0</span></button>
+            </div>
+
+            <section class="community-view active" data-community-view="directory" role="tabpanel">
+                <div class="directory-toolbar">
+                    <label class="directory-search">
+                        <span class="visually-hidden">Search teams</span>
+                        <input type="search" data-team-search placeholder="Search teams, captains, or locations" autocomplete="off">
+                    </label>
+                    <label class="directory-filter">
+                        <span class="visually-hidden">Filter teams by sport</span>
+                        <select data-sport-filter>
+                            <option value="">All sports</option>
+                            <option>Cricket</option>
+                            <option>Football</option>
+                            <option>Basketball</option>
+                            <option>Volleyball</option>
+                            <option>Multi Sport</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="directory-results-heading">
+                    <h2>Registered teams</h2>
+                    <p data-team-result-count></p>
+                </div>
+                <div class="team-directory-grid" data-team-directory></div>
+                <p class="directory-empty" data-directory-empty hidden>No teams match your search. Try another sport or search term.</p>
+            </section>
+
+            <section class="community-view" data-community-view="chats" role="tabpanel" hidden>
+                <div class="chat-workspace">
+                    <aside class="chat-sidebar">
+                        <div class="chat-sidebar-heading">
+                            <div>
+                                <p class="community-kicker">Inbox</p>
+                                <h2>Team messages</h2>
+                            </div>
+                        </div>
+                        <label class="chat-search">
+                            <span class="visually-hidden">Search conversations</span>
+                            <input type="search" data-chat-search placeholder="Search conversations" autocomplete="off">
+                        </label>
+                        <div class="conversation-list" data-conversation-list></div>
+                        <p class="conversation-empty" data-conversation-empty>No conversations yet. Find a team and start a chat.</p>
+                    </aside>
+                    <section class="chat-main" aria-label="Conversation">
+                        <div class="chat-empty-state" data-chat-empty-state>
+                            <span class="chat-empty-mark" aria-hidden="true">+</span>
+                            <h2>Your team conversations</h2>
+                            <p>Choose a team from the directory to start a conversation.</p>
+                            <button type="button" class="community-secondary-button" data-open-directory>Browse teams</button>
+                        </div>
+                        <div class="chat-conversation" data-chat-conversation hidden>
+                            <header class="conversation-header">
+                                <button type="button" class="conversation-back" data-chat-back aria-label="Back to conversations">&larr;</button>
+                                <div class="conversation-avatar" data-chat-avatar></div>
+                                <div class="conversation-team-info">
+                                    <h2 data-chat-team-name></h2>
+                                    <p data-chat-team-meta></p>
+                                </div>
+                                <button type="button" class="conversation-details-button" data-chat-team-details aria-label="View team details">Team details</button>
+                            </header>
+                            <div class="message-list" data-message-list aria-live="polite"></div>
+                            <form class="message-composer" data-message-form>
+                                <label class="file-attach-button" title="Attach a file">
+                                    <span aria-hidden="true">+</span>
+                                    <span class="visually-hidden">Attach a file</span>
+                                    <input type="file" data-message-file>
+                                </label>
+                                <input type="text" name="message" data-message-input placeholder="Write a message" autocomplete="off" aria-label="Write a message">
+                                <button type="submit" class="message-send-button" aria-label="Send message">Send</button>
+                            </form>
+                        </div>
+                    </section>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <div class="modal fade community-modal" id="teamDetailsModal" tabindex="-1" aria-labelledby="teamDetailsTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="team-details-cover" data-details-cover></div>
+                <button type="button" class="btn-close team-details-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="team-details-body">
+                    <p class="community-kicker" data-details-sport></p>
+                    <h2 id="teamDetailsTitle" data-details-name></h2>
+                    <p class="team-details-location" data-details-location></p>
+                    <dl class="team-details-list">
+                        <div><dt>Captain</dt><dd data-details-captain></dd></div>
+                        <div><dt>Players</dt><dd data-details-members></dd></div>
+                        <div><dt>About</dt><dd data-details-notes></dd></div>
+                    </dl>
+                    <button type="button" class="community-primary-button" data-details-message>Message team</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade community-modal" id="messageDeleteModal" tabindex="-1" aria-labelledby="messageDeleteTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content message-delete-dialog">
+                <p class="community-kicker">Please confirm</p>
+                <h2 id="messageDeleteTitle">Delete message</h2>
+                <p data-message-delete-copy>Choose who this message should be deleted for.</p>
+                <div class="message-delete-actions">
+                    <button type="button" class="community-secondary-button" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="community-secondary-button" data-confirm-delete-message="me">Delete for me</button>
+                    <button type="button" class="community-danger-button" data-confirm-delete-message="everyone">Delete for everyone</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="javascript/base.js" data-include="footer"></script>
+
+    <a class="go-top"><i class="icon-ctrl"></i></a>
+    <script type="text/javascript" src="javascript/jquery.min.js"></script>
+    <script type="text/javascript" src="javascript/bootstrap.min.js"></script>
+    <script type="text/javascript" src="javascript/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="javascript/jquery.cookie.js"></script>
+    <script type="text/javascript" src="javascript/swiper-bundle.min.js"></script>
+    <script type="text/javascript" src="javascript/owl.carousel.js"></script>
+    <script type="text/javascript" src="javascript/wow.min.js"></script>
+    <script type="text/javascript" src="javascript/jquery-waypoints.js"></script>
+    <script type="text/javascript" src="javascript/jquery-countTo.js"></script>
+    <script type="text/javascript" src="javascript/auth-team.js"></script>
+    <script type="text/javascript" src="javascript/community.js"></script>
+    <script type="text/javascript" src="javascript/main.js"></script>
+</body>
+
+</html>

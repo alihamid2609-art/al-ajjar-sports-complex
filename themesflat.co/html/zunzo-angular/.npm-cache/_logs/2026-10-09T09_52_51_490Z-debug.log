@@ -1,0 +1,95 @@
+0 info it worked if it ends with ok
+1 verbose cli [
+1 verbose cli   'C:\\Program Files\\nodejs\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install'
+1 verbose cli ]
+2 info using npm@6.14.18
+3 info using node@v14.21.3
+4 verbose npm-session 5715a98a095195ee
+5 silly install runPreinstallTopLevelLifecycles
+6 silly preinstall alfajjar-zunzo-angular@1.0.0
+7 info lifecycle alfajjar-zunzo-angular@1.0.0~preinstall: alfajjar-zunzo-angular@1.0.0
+8 silly install loadCurrentTree
+9 silly install readLocalPackageData
+10 timing stage:loadCurrentTree Completed in 10558ms
+11 silly install loadIdealTree
+12 silly install cloneCurrentTreeToIdealTree
+13 timing stage:loadIdealTree:cloneCurrentTree Completed in 46ms
+14 silly install loadShrinkwrap
+15 warn read-shrinkwrap This version of npm is compatible with lockfileVersion@1, but package-lock.json was generated for lockfileVersion@2. I'll try to do my best with it!
+16 timing stage:loadIdealTree:loadShrinkwrap Completed in 1875ms
+17 silly install loadAllDepsIntoIdealTree
+18 silly fetchPackageMetaData error for @angular-devkit/build-angular@^15.2.11 request to https://registry.npmmirror.com/@angular-devkit%2fbuild-angular failed, reason: connect EACCES 43.109.149.42:443
+19 silly fetchPackageMetaData error for @angular/cli@^15.2.11 request to https://registry.npmmirror.com/@angular%2fcli failed, reason: connect EACCES 43.109.149.42:443
+20 silly fetchPackageMetaData error for @angular/compiler-cli@^15.2.10 request to https://registry.npmmirror.com/@angular%2fcompiler-cli failed, reason: connect EACCES 43.109.149.42:443
+21 silly fetchPackageMetaData error for typescript@~4.9.5 request to https://registry.npmmirror.com/typescript failed, reason: connect EACCES 43.109.149.42:443
+22 silly fetchPackageMetaData error for @angular/animations@^15.2.10 request to https://registry.npmmirror.com/@angular%2fanimations failed, reason: connect EACCES 43.109.149.42:443
+23 silly fetchPackageMetaData error for @angular/common@^15.2.10 request to https://registry.npmmirror.com/@angular%2fcommon failed, reason: connect EACCES 43.109.149.42:443
+24 silly fetchPackageMetaData error for @angular/core@^15.2.10 request to https://registry.npmmirror.com/@angular%2fcore failed, reason: connect EACCES 43.109.149.42:443
+25 silly fetchPackageMetaData error for @angular/compiler@^15.2.10 request to https://registry.npmmirror.com/@angular%2fcompiler failed, reason: connect EACCES 43.109.149.42:443
+26 silly fetchPackageMetaData error for @angular/forms@^15.2.10 request to https://registry.npmmirror.com/@angular%2fforms failed, reason: connect EACCES 43.109.149.42:443
+27 silly fetchPackageMetaData error for @angular/platform-browser@^15.2.10 request to https://registry.npmmirror.com/@angular%2fplatform-browser failed, reason: connect EACCES 43.109.149.42:443
+28 silly fetchPackageMetaData error for @angular/platform-browser-dynamic@^15.2.10 request to https://registry.npmmirror.com/@angular%2fplatform-browser-dynamic failed, reason: connect EACCES 43.109.149.42:443
+29 silly fetchPackageMetaData error for @angular/router@^15.2.10 request to https://registry.npmmirror.com/@angular%2frouter failed, reason: connect EACCES 43.109.149.42:443
+30 silly fetchPackageMetaData error for zone.js@~0.12.0 request to https://registry.npmmirror.com/zone.js failed, reason: connect EACCES 43.109.149.42:443
+31 silly fetchPackageMetaData error for @angular/animations@^15.2.10 request to https://registry.npmmirror.com/@angular%2fanimations failed, reason: connect EACCES 43.109.149.42:443
+32 silly fetchPackageMetaData error for @angular/common@^15.2.10 request to https://registry.npmmirror.com/@angular%2fcommon failed, reason: connect EACCES 43.109.149.42:443
+33 silly fetchPackageMetaData error for @angular/compiler@^15.2.10 request to https://registry.npmmirror.com/@angular%2fcompiler failed, reason: connect EACCES 43.109.149.42:443
+34 silly fetchPackageMetaData error for @angular/core@^15.2.10 request to https://registry.npmmirror.com/@angular%2fcore failed, reason: connect EACCES 43.109.149.42:443
+35 silly fetchPackageMetaData error for @angular/forms@^15.2.10 request to https://registry.npmmirror.com/@angular%2fforms failed, reason: connect EACCES 43.109.149.42:443
+36 silly fetchPackageMetaData error for @angular/platform-browser@^15.2.10 request to https://registry.npmmirror.com/@angular%2fplatform-browser failed, reason: connect EACCES 43.109.149.42:443
+37 silly fetchPackageMetaData error for @angular/platform-browser-dynamic@^15.2.10 request to https://registry.npmmirror.com/@angular%2fplatform-browser-dynamic failed, reason: connect EACCES 43.109.149.42:443
+38 silly fetchPackageMetaData error for @angular/router@^15.2.10 request to https://registry.npmmirror.com/@angular%2frouter failed, reason: connect EACCES 43.109.149.42:443
+39 silly fetchPackageMetaData error for zone.js@~0.12.0 request to https://registry.npmmirror.com/zone.js failed, reason: connect EACCES 43.109.149.42:443
+40 timing stage:rollbackFailedOptional Completed in 1ms
+41 timing stage:runTopLevelLifecycles Completed in 14211ms
+42 silly saveTree alfajjar-zunzo-angular@1.0.0
+42 silly saveTree +-- rxjs@7.8.2
+42 silly saveTree | `-- tslib@2.8.1
+42 silly saveTree `-- tslib@2.8.1
+43 verbose type system
+44 verbose stack FetchError: request to https://registry.npmmirror.com/@angular%2fanimations failed, reason: connect EACCES 43.109.149.42:443
+44 verbose stack     at ClientRequest.<anonymous> (C:\Program Files\nodejs\node_modules\npm\node_modules\node-fetch-npm\src\index.js:68:14)
+44 verbose stack     at ClientRequest.emit (events.js:400:28)
+44 verbose stack     at TLSSocket.socketErrorListener (_http_client.js:475:9)
+44 verbose stack     at TLSSocket.emit (events.js:400:28)
+44 verbose stack     at emitErrorNT (internal/streams/destroy.js:106:8)
+44 verbose stack     at emitErrorCloseNT (internal/streams/destroy.js:74:3)
+44 verbose stack     at processTicksAndRejections (internal/process/task_queues.js:82:21)
+45 verbose cwd C:\My Web Sites\THEMEFOREST TEMPLATES\themesflat.co\html\zunzo-angular
+46 verbose Windows_NT 10.0.26300
+47 verbose argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install"
+48 verbose node v14.21.3
+49 verbose npm  v6.14.18
+50 error code EACCES
+51 error errno EACCES
+52 error FetchError: request to https://registry.npmmirror.com/@angular%2fanimations failed, reason: connect EACCES 43.109.149.42:443
+52 error     at ClientRequest.<anonymous> (C:\Program Files\nodejs\node_modules\npm\node_modules\node-fetch-npm\src\index.js:68:14)
+52 error     at ClientRequest.emit (events.js:400:28)
+52 error     at TLSSocket.socketErrorListener (_http_client.js:475:9)
+52 error     at TLSSocket.emit (events.js:400:28)
+52 error     at emitErrorNT (internal/streams/destroy.js:106:8)
+52 error     at emitErrorCloseNT (internal/streams/destroy.js:74:3)
+52 error     at processTicksAndRejections (internal/process/task_queues.js:82:21)
+52 error  FetchError: request to https://registry.npmmirror.com/@angular%2fanimations failed, reason: connect EACCES 43.109.149.42:443
+52 error     at ClientRequest.<anonymous> (C:\Program Files\nodejs\node_modules\npm\node_modules\node-fetch-npm\src\index.js:68:14)
+52 error     at ClientRequest.emit (events.js:400:28)
+52 error     at TLSSocket.socketErrorListener (_http_client.js:475:9)
+52 error     at TLSSocket.emit (events.js:400:28)
+52 error     at emitErrorNT (internal/streams/destroy.js:106:8)
+52 error     at emitErrorCloseNT (internal/streams/destroy.js:74:3)
+52 error     at processTicksAndRejections (internal/process/task_queues.js:82:21) {
+52 error   type: 'system',
+52 error   errno: 'EACCES',
+52 error   code: 'EACCES',
+52 error   parent: 'zunzo-angular'
+52 error }
+53 error The operation was rejected by your operating system.
+53 error It's possible that the file was already in use (by a text editor or antivirus),
+53 error or that you lack permissions to access it.
+53 error
+53 error If you believe this might be a permissions issue, please double-check the
+53 error permissions of the file and its containing directories, or try running
+53 error the command again as root/Administrator.
+54 verbose exit [ 1, true ]

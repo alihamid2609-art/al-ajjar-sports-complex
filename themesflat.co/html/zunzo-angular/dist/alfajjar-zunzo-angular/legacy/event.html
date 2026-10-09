@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<head>
+    <meta charset="utf-8">
+    <title>Bookings - Al Fajjar Sports Complex</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap.rtl.min.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap-grid.min.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap-reboot.min.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap-utilities.rtl.min.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap-utilities.min.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap-reboot.rtl.min.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap-grid.rtl.min.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/responsive.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/colors/color1.css" id="colors">
+    <link rel="stylesheet" type="text/css" href="stylesheets/animate.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/event.css">
+    <link href="images/icon/favicon.png" rel="shortcut icon">
+</head>
+<body class="header-sticky">
+    <div class="preload preload-container">
+        <div class="swapping-squares-spinner">
+            <div class="square"></div><div class="square"></div><div class="square"></div><div class="square"></div>
+        </div>
+    </div>
+    <script type="text/javascript" src="javascript/base.js" data-include="header"></script>
+
+    <main class="booking-page">
+        <section class="booking-hero">
+            <img src="images/stadium/stad-cover.jpg" alt="Al Fajjar stadium booking">
+            <div class="themeflat-container">
+                <p class="booking-kicker">Bookings</p>
+                <h1>Book the stadium or indoor arena for your team</h1>
+                <p>Team captains can book after login. Stadium bookings can select another team as opponent, while indoor arena bookings are hourly for practice and short matches.</p>
+            </div>
+        </section>
+
+        <section class="booking-shell">
+            <div class="themeflat-container">
+                <div class="booking-grid">
+                    <div class="booking-card">
+                        <img src="images/arena/arena2.jpg" alt="Indoor arena cricket booking">
+                        <div class="booking-card-body">
+                            <p class="booking-kicker">Rates in PKR</p>
+                            <h2>Indoor arena hourly rates</h2>
+                            <p>Choose day or night timing, select how many hours you need, and the total will calculate automatically.</p>
+                            <div class="booking-rates">
+                                <div class="booking-rate"><strong>PKR 1,300</strong><span>Per hour day</span></div>
+                                <div class="booking-rate"><strong>PKR 1,800</strong><span>Per hour night</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <section class="booking-form-panel" aria-label="Booking form">
+                        <div class="booking-tabs" role="tablist" aria-label="Booking type">
+                            <button type="button" class="booking-tab active" data-booking-type="arena">Indoor Arena</button>
+                            <button type="button" class="booking-tab" data-booking-type="stadium">Stadium Match</button>
+                        </div>
+                        <h2 data-booking-heading>Indoor arena booking</h2>
+                        <p class="booking-login" data-booking-login>Please login or register a team profile before booking.</p>
+                        <p class="booking-message" data-booking-message></p>
+                        <form class="booking-form" data-booking-form>
+                            <input type="hidden" name="bookingType" value="arena" data-booking-type-input>
+                            <div class="booking-fields">
+                                <div class="booking-field">
+                                    <label>Your Team</label>
+                                    <input type="text" name="teamName" data-booking-team readonly>
+                                </div>
+                                <div class="booking-field" data-opponent-field hidden>
+                                    <label>Send request to teams</label>
+                                    <input type="search" class="booking-team-search" data-team-search placeholder="Search teams">
+                                    <div class="booking-team-picker" data-opponent-team></div>
+                                    <small class="booking-help">Select one or more teams. The first team to accept will fix the stadium slot.</small>
+                                </div>
+                                <div class="booking-field">
+                                    <label>Date</label>
+                                    <input type="hidden" name="date" data-booking-date required>
+                                    <div class="booking-date-selects">
+                                        <select data-date-day aria-label="Day"></select>
+                                        <select data-date-month aria-label="Month"></select>
+                                        <select data-date-year aria-label="Year"></select>
+                                    </div>
+                                </div>
+                                <div class="booking-field">
+                                    <label>Start Time</label>
+                                    <select name="time" data-booking-time required></select>
+                                </div>
+                                <div class="booking-field" data-hours-field>
+                                    <label>Hours</label>
+                                    <select name="hours" data-booking-hours>
+                                        <option value="1">1 hour</option>
+                                        <option value="2">2 hours</option>
+                                        <option value="3">3 hours</option>
+                                        <option value="4">4 hours</option>
+                                        <option value="5">5 hours</option>
+                                        <option value="6">6 hours</option>
+                                    </select>
+                                </div>
+                                <div class="booking-field" data-rate-field>
+                                    <label>Timing Rate</label>
+                                    <select name="rateType" data-rate-type>
+                                        <option value="day">Day - PKR 1,300/hr</option>
+                                        <option value="night">Night - PKR 1,800/hr</option>
+                                    </select>
+                                </div>
+                                <div class="booking-field full">
+                                    <label>Notes</label>
+                                    <textarea name="notes" placeholder="Match format, players, or special requests"></textarea>
+                                </div>
+                            </div>
+                            <div class="booking-total">
+                                <div>
+                                    <small data-total-copy>Indoor arena estimate</small>
+                                    <strong data-booking-total>PKR 1,300</strong>
+                                </div>
+                                <p class="booking-mode-note" data-mode-note>Day arena rate is PKR 1,300/hr and night arena rate is PKR 1,800/hr.</p>
+                            </div>
+                            <div class="booking-actions">
+                                <button type="submit" class="flat-button" data-booking-submit>Confirm Booking</button>
+                                <a href="#" class="booking-secondary" data-booking-login-action data-bs-toggle="modal" data-bs-target="#exampleModalToggle">Login first</a>
+                            </div>
+                        </form>
+                    </section>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script type="text/javascript" src="javascript/base.js" data-include="footer"></script>
+
+    <a class="go-top">
+        <i class="icon-ctrl"></i>
+    </a>
+
+    <script type="text/javascript" src="javascript/jquery.min.js"></script>
+    <script type="text/javascript" src="javascript/bootstrap.min.js"></script>
+    <script type="text/javascript" src="javascript/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="javascript/jquery.cookie.js"></script>
+    <script type="text/javascript" src="javascript/swiper-bundle.min.js"></script>
+    <script type="text/javascript" src="javascript/owl.carousel.js"></script>
+    <script type="text/javascript" src="javascript/wow.min.js"></script>
+    <script type="text/javascript" src="javascript/count-down.js"></script>
+    <script type="text/javascript" src="javascript/magnific-popup.min.js"></script>
+    <script type="text/javascript" src="javascript/jquery-waypoints.js"></script>
+    <script type="text/javascript" src="javascript/jquery-countTo.js"></script>
+    <script type="text/javascript" src="javascript/auth-team.js"></script>
+    <script>
+        (function () {
+            "use strict";
+            var sessionKey = "alfajjarTeamSession";
+            var profileKey = "alfajjarTeamProfile";
+            var directoryKey = "alfajjarTeamDirectory";
+            var requestKey = "alfajjarMatchRequests";
+            var dayRate = 1300;
+            var nightRate = 1800;
+            var stadiumRate = 12000;
+            var bookingType = "arena";
+            function qs(selector) { return document.querySelector(selector); }
+            function qsa(selector) { return Array.prototype.slice.call(document.querySelectorAll(selector)); }
+            function isLoggedIn() { return localStorage.getItem(sessionKey) === "active"; }
+            function readJson(key, fallback) {
+                try { return JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback)); }
+                catch (error) { return fallback; }
+            }
+            function profile() { return readJson(profileKey, { teamName: "", directoryId: "", category: "Cricket" }); }
+            function teams() {
+                var byId = {};
+                (window.AlfajjarDemoTeams || []).concat(readJson(directoryKey, [])).forEach(function (team) {
+                    if (team && team.id) byId[team.id] = team;
+                });
+                return Object.keys(byId).map(function (id) { return byId[id]; });
+            }
+            function money(value) { return "PKR " + Number(value || 0).toLocaleString("en-PK"); }
+            function initials(name) {
+                return String(name || "Team").split(/\s+/).filter(Boolean).slice(0, 2).map(function (part) {
+                    return part.charAt(0).toUpperCase();
+                }).join("") || "T";
+            }
+            function myTeamName(current) {
+                if (current.teamName) return current.teamName;
+                if (current.directoryId) {
+                    var match = teams().filter(function (team) { return String(team.id) === String(current.directoryId); })[0];
+                    if (match && match.teamName) return match.teamName;
+                }
+                return "";
+            }
+            function populateScheduleControls() {
+                var day = qs("[data-date-day]");
+                var month = qs("[data-date-month]");
+                var year = qs("[data-date-year]");
+                var time = qs("[data-booking-time]");
+                var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                if (!day.childElementCount) {
+                    for (var d = 1; d <= 31; d += 1) day.add(new Option(String(d).padStart(2, "0"), String(d).padStart(2, "0")));
+                    monthNames.forEach(function (name, index) { month.add(new Option(name, String(index + 1).padStart(2, "0"))); });
+                    var startYear = new Date().getFullYear();
+                    for (var y = startYear; y <= startYear + 2; y += 1) year.add(new Option(String(y), String(y)));
+                    var today = new Date();
+                    day.value = String(today.getDate()).padStart(2, "0");
+                    month.value = String(today.getMonth() + 1).padStart(2, "0");
+                    year.value = String(today.getFullYear());
+                }
+                if (!time.childElementCount) {
+                    for (var hour = 6; hour <= 23; hour += 1) {
+                        ["00", "30"].forEach(function (minute) {
+                            var value = String(hour).padStart(2, "0") + ":" + minute;
+                            var displayHour = hour % 12 || 12;
+                            var label = displayHour + ":" + minute + " " + (hour >= 12 ? "PM" : "AM");
+                            time.add(new Option(label, value));
+                        });
+                    }
+                    time.value = "18:00";
+                }
+                syncDateValue();
+            }
+            function syncDateValue() {
+                var day = qs("[data-date-day]").value;
+                var month = qs("[data-date-month]").value;
+                var year = qs("[data-date-year]").value;
+                qs("[data-booking-date]").value = year && month && day ? year + "-" + month + "-" + day : "";
+            }
+            function syncOpponentOptions() {
+                var current = profile();
+                var picker = qs("[data-opponent-team]");
+                var search = (qs("[data-team-search]").value || "").trim().toLowerCase();
+                picker.textContent = "";
+                var availableTeams = teams().filter(function (team) {
+                    var searchable = [team.teamName, team.category, team.city, team.area].join(" ").toLowerCase();
+                    return String(team.id) !== String(current.directoryId) && (!search || searchable.indexOf(search) !== -1);
+                });
+                availableTeams.forEach(function (team) {
+                    var label = document.createElement("label");
+                    label.className = "booking-team-option";
+                    label.innerHTML = "<input type=\"checkbox\" value=\"" + team.id + "\"><span class=\"booking-team-logo\">" + initials(team.teamName) + "</span><span class=\"booking-team-copy\"><strong>" + (team.teamName || "Unnamed team") + "</strong><small>" + [team.category, team.city || team.area].filter(Boolean).join(" - ") + "</small></span><span class=\"booking-team-check\">Select</span>";
+                    var logo = label.querySelector(".booking-team-logo");
+                    if (team.image) {
+                        logo.textContent = "";
+                        logo.style.backgroundImage = "url('" + team.image + "')";
+                    }
+                    picker.appendChild(label);
+                });
+                if (!availableTeams.length) {
+                    var empty = document.createElement("p");
+                    empty.className = "booking-team-empty";
+                    empty.textContent = "No other teams listed yet.";
+                    picker.appendChild(empty);
+                }
+            }
+            function total() {
+                if (bookingType === "stadium") return stadiumRate;
+                return (qs("[data-rate-type]").value === "night" ? nightRate : dayRate) * Number(qs("[data-booking-hours]").value || 1);
+            }
+            function sync() {
+                var loggedIn = isLoggedIn();
+                var current = profile();
+                var teamName = myTeamName(current);
+                qs("[data-booking-team]").value = loggedIn ? (teamName || "Complete team profile first") : "Login required";
+                qs("[data-booking-login]").classList.toggle("show", !loggedIn);
+                qs("[data-booking-submit]").disabled = !loggedIn || !teamName;
+                qs("[data-booking-login-action]").style.display = loggedIn ? "none" : "inline-flex";
+                qs("[data-booking-total]").textContent = money(total());
+                qs("[data-total-copy]").textContent = bookingType === "stadium" ? "Stadium match estimate" : "Indoor arena estimate";
+                qs("[data-booking-submit]").textContent = bookingType === "stadium" ? "Send Match Requests" : "Confirm Booking";
+                qs("[data-mode-note]").textContent = bookingType === "stadium"
+                    ? "Stadium timing locks only after one invited team accepts your match request."
+                    : "Day arena rate is PKR 1,300/hr and night arena rate is PKR 1,800/hr.";
+            }
+            function setType(type) {
+                bookingType = type;
+                qs("[data-booking-type-input]").value = type;
+                qsa("[data-booking-type]").forEach(function (button) {
+                    button.classList.toggle("active", button.getAttribute("data-booking-type") === type);
+                });
+                qs("[data-booking-heading]").textContent = type === "stadium" ? "Stadium team match booking" : "Indoor arena booking";
+                qs("[data-opponent-field]").hidden = type !== "stadium";
+                qs("[data-hours-field]").hidden = type === "stadium";
+                qs("[data-rate-field]").hidden = type === "stadium";
+                syncOpponentOptions();
+                sync();
+            }
+            qsa("[data-booking-type]").forEach(function (button) {
+                button.addEventListener("click", function () { setType(button.getAttribute("data-booking-type")); });
+            });
+            qsa("[data-date-day], [data-date-month], [data-date-year]").forEach(function (select) {
+                select.addEventListener("change", syncDateValue);
+            });
+            qs("[data-team-search]").addEventListener("input", syncOpponentOptions);
+            qs("[data-booking-hours]").addEventListener("change", sync);
+            qs("[data-rate-type]").addEventListener("change", sync);
+            qs("[data-booking-form]").addEventListener("submit", function (event) {
+                event.preventDefault();
+                var message = qs("[data-booking-message]");
+                if (!isLoggedIn()) {
+                    message.textContent = "Please login before booking.";
+                    message.classList.add("show");
+                    return;
+                }
+                var form = event.currentTarget;
+                syncDateValue();
+                var data = new FormData(form);
+                var currentProfile = profile();
+                var currentTeamName = myTeamName(currentProfile);
+                if (!currentTeamName) {
+                    message.textContent = "Please complete your team profile name before booking.";
+                    message.classList.add("show");
+                    return;
+                }
+                if (bookingType === "stadium") {
+                    var selectedTeams = qsa("[data-opponent-team] input:checked")
+                        .map(function (input) { return input.value; })
+                        .filter(Boolean);
+                    if (!selectedTeams.length) {
+                        message.textContent = "Select at least one team to send match request.";
+                        message.classList.add("show");
+                        return;
+                    }
+                    var requests = readJson(requestKey, []);
+                    requests.push({
+                        id: "request-" + Date.now(),
+                        type: "stadium",
+                        status: "Pending",
+                        requesterTeamId: currentProfile.directoryId || "",
+                        requesterTeamName: currentTeamName,
+                        targetTeamIds: selectedTeams,
+                        responses: {},
+                        acceptedTeamId: "",
+                        date: data.get("date"),
+                        time: data.get("time"),
+                        total: stadiumRate,
+                        notes: data.get("notes") || "",
+                        createdAt: new Date().toISOString()
+                    });
+                    localStorage.setItem(requestKey, JSON.stringify(requests));
+                    message.textContent = "Match request sent to " + selectedTeams.length + " team" + (selectedTeams.length === 1 ? "" : "s") + ". Slot confirms when one team accepts.";
+                    message.classList.add("show");
+                    form.reset();
+                    populateScheduleControls();
+                    syncOpponentOptions();
+                    sync();
+                    return;
+                }
+                var bookings = readJson("alfajjarBookings", []);
+                bookings.push({
+                    id: "booking-" + Date.now(),
+                    type: "arena",
+                    status: "Confirmed",
+                    teamId: currentProfile.directoryId || "",
+                    teamName: currentTeamName,
+                    opponentTeam: "",
+                    date: data.get("date"),
+                    time: data.get("time"),
+                    hours: Number(data.get("hours") || 1),
+                    rateType: data.get("rateType"),
+                    total: total(),
+                    notes: data.get("notes") || "",
+                    createdAt: new Date().toISOString()
+                });
+                localStorage.setItem("alfajjarBookings", JSON.stringify(bookings));
+                message.textContent = "Indoor arena booking confirmed: " + money(total()) + ".";
+                message.classList.add("show");
+                form.reset();
+                populateScheduleControls();
+                sync();
+            });
+            populateScheduleControls();
+            setType("arena");
+        }());
+    </script>
+    <script type="text/javascript" src="javascript/main.js"></script>
+</body>
+</html>

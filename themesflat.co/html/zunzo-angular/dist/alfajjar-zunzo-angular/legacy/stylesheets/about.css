@@ -1,0 +1,36 @@
+.about-alfajjar { color: #20231f; background: #f6f7f2; }
+.about-alfajjar .about-hero { padding: 86px 0 72px; background: #fff; }
+.about-alfajjar .about-hero-grid { display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); gap: 42px; align-items: center; }
+.about-alfajjar .about-kicker { margin: 0 0 10px; color: #708622; font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.about-alfajjar h2, .about-alfajjar h3 { color: #20231f; font-family: Oswald, sans-serif; text-transform: uppercase; }
+.about-alfajjar .about-hero h2 { margin: 0 0 18px; font-size: 48px; line-height: 1.08; }
+.about-alfajjar p { color: #62675e; font-size: 16px; line-height: 1.7; }
+.about-alfajjar .about-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+.about-alfajjar .about-button { display: inline-flex; min-height: 48px; align-items: center; justify-content: center; padding: 0 22px; border: 1px solid #34482a; border-radius: 4px; background: #34482a; color: #fff; font-family: Oswald, sans-serif; letter-spacing: .05em; text-transform: uppercase; }
+.about-alfajjar .about-button.secondary { background: #fff; color: #34482a; }
+.about-alfajjar .about-image-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.about-alfajjar .about-image { position: relative; overflow: hidden; border-radius: 8px; background: #dfe5d8; }
+.about-alfajjar .about-image.large { grid-column: span 2; aspect-ratio: 16 / 8; }
+.about-alfajjar .about-image.small { aspect-ratio: 1 / .82; }
+.about-alfajjar .about-image img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center; }
+.about-alfajjar .about-stats { padding: 36px 0; background: #171b14; }
+.about-alfajjar .about-stat-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: rgba(255,255,255,.12); }
+.about-alfajjar .about-stat { padding: 26px 22px; background: #171b14; }
+.about-alfajjar .about-stat strong { display: block; margin-bottom: 5px; color: #c3e92d; font-family: Oswald, sans-serif; font-size: 34px; line-height: 1; }
+.about-alfajjar .about-stat span { color: #fff; font-size: 13px; text-transform: uppercase; letter-spacing: .06em; }
+.about-alfajjar .about-section { padding: 82px 0; }
+.about-alfajjar .facility-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.about-alfajjar .facility-card { overflow: hidden; border: 1px solid #dde2d6; border-radius: 8px; background: #fff; box-shadow: 0 1px 0 rgba(31,36,25,.04); }
+.about-alfajjar .facility-card img { width: 100%; height: 230px; display: block; object-fit: cover; object-position: center; }
+.about-alfajjar .facility-card-content { padding: 22px; }
+.about-alfajjar .facility-card h3 { margin: 0 0 10px; font-size: 24px; line-height: 1.2; }
+.about-alfajjar .about-split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 34px; align-items: stretch; }
+.about-alfajjar .about-panel { padding: 34px; border-radius: 8px; background: #fff; border: 1px solid #dde2d6; }
+.about-alfajjar .about-panel.dark { background: #20261b; border-color: #20261b; }
+.about-alfajjar .about-panel.dark h3, .about-alfajjar .about-panel.dark p { color: #fff; }
+.about-alfajjar .about-panel ul { margin: 18px 0 0; padding: 0; list-style: none; }
+.about-alfajjar .about-panel li { display: flex; gap: 10px; padding: 10px 0; color: #62675e; border-top: 1px solid #ecefe8; }
+.about-alfajjar .about-panel.dark li { color: #dce3d6; border-color: rgba(255,255,255,.12); }
+.about-alfajjar .about-panel li::before { content: ""; width: 8px; height: 8px; flex: 0 0 8px; margin-top: 9px; border-radius: 50%; background: #c3e92d; }
+@media (max-width: 991px) { .about-alfajjar .about-hero-grid, .about-alfajjar .about-split { grid-template-columns: 1fr; } .about-alfajjar .facility-grid, .about-alfajjar .about-stat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 575px) { .about-alfajjar .about-hero { padding: 54px 0; } .about-alfajjar .about-hero h2 { font-size: 34px; } .about-alfajjar .facility-grid, .about-alfajjar .about-stat-grid { grid-template-columns: 1fr; } .about-alfajjar .about-image.large, .about-alfajjar .about-image.small { grid-column: auto; aspect-ratio: 4 / 3; } }

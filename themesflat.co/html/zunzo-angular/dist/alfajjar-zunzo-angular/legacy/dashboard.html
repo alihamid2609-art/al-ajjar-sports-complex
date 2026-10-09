@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<head>
+    <meta charset="utf-8">
+    <title>Dashboard - Al Fajjar Sports Complex</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap.rtl.min.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap-grid.min.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap-reboot.min.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap-utilities.rtl.min.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap-utilities.min.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap-reboot.rtl.min.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap-grid.rtl.min.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/responsive.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/colors/color1.css" id="colors">
+    <link rel="stylesheet" type="text/css" href="stylesheets/animate.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/dashboard.css">
+    <link href="images/icon/favicon.png" rel="shortcut icon">
+</head>
+<body class="header-sticky dashboard-page">
+    <div class="preload preload-container">
+        <div class="swapping-squares-spinner">
+            <div class="square"></div><div class="square"></div><div class="square"></div><div class="square"></div>
+        </div>
+    </div>
+    <script type="text/javascript" src="javascript/base.js" data-include="header"></script>
+
+    <main class="dashboard-shell">
+        <section class="dashboard-hero">
+            <div class="themeflat-container">
+                <p class="dashboard-kicker">My dashboard</p>
+                <h1>Bookings, requests, team status, and notifications</h1>
+                <p data-dashboard-team>Login to view your team dashboard.</p>
+            </div>
+        </section>
+
+        <section class="dashboard-content">
+            <div class="themeflat-container">
+                <div class="dashboard-login" data-dashboard-login>
+                    <h2>Login required</h2>
+                    <p>Please login or register a team profile to see bookings, notifications, and status details.</p>
+                    <a href="#" class="flat-button" data-bs-toggle="modal" data-bs-target="#exampleModalToggle">Login</a>
+                </div>
+
+                <div class="dashboard-private" data-dashboard-private hidden>
+                    <div class="dashboard-stats">
+                        <article><span>Total bookings</span><strong data-stat-total>0</strong></article>
+                        <article><span>Pending</span><strong data-stat-pending>0</strong></article>
+                        <article><span>Confirmed</span><strong data-stat-confirmed>0</strong></article>
+                        <article><span>Cancelled</span><strong data-stat-cancelled>0</strong></article>
+                    </div>
+
+                    <div class="dashboard-grid">
+                        <section class="dashboard-panel dashboard-requests-panel">
+                            <div class="panel-heading">
+                                <div>
+                                    <p class="dashboard-kicker">Team match requests</p>
+                                    <h2>Requests waiting for you</h2>
+                                </div>
+                            </div>
+                            <div class="request-list" data-incoming-requests></div>
+                            <p class="dashboard-empty" data-request-empty>No pending match requests for your team.</p>
+                        </section>
+
+                        <section class="dashboard-panel">
+                            <div class="panel-heading">
+                                <div>
+                                    <p class="dashboard-kicker">Booking requests</p>
+                                    <h2>All bookings</h2>
+                                </div>
+                                <a href="event.html">New booking</a>
+                            </div>
+                            <div class="dashboard-table-wrap">
+                                <table class="dashboard-table">
+                                    <thead><tr><th>Facility</th><th>Date</th><th>Team</th><th>Total</th><th>Status</th></tr></thead>
+                                    <tbody data-booking-rows></tbody>
+                                </table>
+                                <p class="dashboard-empty" data-booking-empty>No bookings yet. Create your first booking request.</p>
+                            </div>
+                        </section>
+
+                        <aside class="dashboard-panel">
+                            <div class="panel-heading">
+                                <div>
+                                    <p class="dashboard-kicker">Notifications</p>
+                                    <h2>Latest updates</h2>
+                                </div>
+                            </div>
+                            <div class="notification-list" data-dashboard-notifications></div>
+                        </aside>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script type="text/javascript" src="javascript/base.js" data-include="footer"></script>
+    <a class="go-top"><i class="icon-ctrl"></i></a>
+    <script type="text/javascript" src="javascript/jquery.min.js"></script>
+    <script type="text/javascript" src="javascript/bootstrap.min.js"></script>
+    <script type="text/javascript" src="javascript/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="javascript/jquery.cookie.js"></script>
+    <script type="text/javascript" src="javascript/swiper-bundle.min.js"></script>
+    <script type="text/javascript" src="javascript/owl.carousel.js"></script>
+    <script type="text/javascript" src="javascript/wow.min.js"></script>
+    <script type="text/javascript" src="javascript/count-down.js"></script>
+    <script type="text/javascript" src="javascript/magnific-popup.min.js"></script>
+    <script type="text/javascript" src="javascript/jquery-waypoints.js"></script>
+    <script type="text/javascript" src="javascript/jquery-countTo.js"></script>
+    <script type="text/javascript" src="javascript/auth-team.js"></script>
+    <script>
+        (function () {
+            "use strict";
+            var sessionKey = "alfajjarTeamSession";
+            var profileKey = "alfajjarTeamProfile";
+            var bookingKey = "alfajjarBookings";
+            var requestKey = "alfajjarMatchRequests";
+            function qs(selector) { return document.querySelector(selector); }
+            function readJson(key, fallback) {
+                try { return JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback)); }
+                catch (error) { return fallback; }
+            }
+            function writeJson(key, value) { localStorage.setItem(key, JSON.stringify(value)); }
+            function money(value) { return "PKR " + Number(value || 0).toLocaleString("en-PK"); }
+            function statusFor(booking) { return booking.status || "Pending"; }
+            function pillClass(status) { return "status-pill status-" + String(status || "Pending").toLowerCase(); }
+            function currentTeamId(profile) { return profile.directoryId || ""; }
+            function isIncomingRequest(request, teamId) {
+                return request.status === "Pending"
+                    && request.targetTeamIds
+                    && request.targetTeamIds.map(String).indexOf(String(teamId)) !== -1
+                    && !(request.responses && request.responses[teamId]);
+            }
+            function createConfirmedBooking(request, profile) {
+                var bookings = readJson(bookingKey, []);
+                var alreadyExists = bookings.some(function (booking) { return booking.requestId === request.id; });
+                if (alreadyExists) return;
+                bookings.push({
+                    id: "booking-" + Date.now(),
+                    requestId: request.id,
+                    type: "stadium",
+                    status: "Confirmed",
+                    teamId: request.requesterTeamId || "",
+                    teamName: request.requesterTeamName || "Team",
+                    opponentTeam: profile.teamName || "Opponent team",
+                    opponentTeamId: currentTeamId(profile),
+                    date: request.date,
+                    time: request.time,
+                    hours: null,
+                    rateType: "stadium",
+                    total: request.total || 12000,
+                    notes: request.notes || "",
+                    createdAt: new Date().toISOString()
+                });
+                writeJson(bookingKey, bookings);
+            }
+            function respondToRequest(requestId, response) {
+                var profile = readJson(profileKey, {});
+                var teamId = currentTeamId(profile);
+                var requests = readJson(requestKey, []);
+                requests = requests.map(function (request) {
+                    if (request.id !== requestId || request.status !== "Pending") return request;
+                    request.responses = request.responses || {};
+                    request.responses[teamId] = response;
+                    if (response === "Accepted") {
+                        request.status = "Confirmed";
+                        request.acceptedTeamId = teamId;
+                        createConfirmedBooking(request, profile);
+                    }
+                    return request;
+                });
+                writeJson(requestKey, requests);
+                render();
+            }
+            function renderIncomingRequests(profile) {
+                var teamId = currentTeamId(profile);
+                var requests = readJson(requestKey, []).filter(function (request) { return isIncomingRequest(request, teamId); });
+                var list = qs("[data-incoming-requests]");
+                list.textContent = "";
+                requests.slice().reverse().forEach(function (request) {
+                    var item = document.createElement("article");
+                    item.className = "request-item";
+                    item.innerHTML = "<div><strong>" + (request.requesterTeamName || "Team") + "</strong><span>Stadium match request for " + (request.date || "selected date") + " at " + (request.time || "selected time") + "</span><small>" + money(request.total || 12000) + (request.notes ? " - " + request.notes : "") + "</small></div><div class=\"request-actions\"><button type=\"button\" data-accept-request=\"" + request.id + "\">Accept</button><button type=\"button\" data-decline-request=\"" + request.id + "\">Decline</button></div>";
+                    list.appendChild(item);
+                });
+                qs("[data-request-empty]").hidden = requests.length > 0;
+            }
+            function render() {
+                var loggedIn = localStorage.getItem(sessionKey) === "active";
+                var login = qs("[data-dashboard-login]");
+                var privatePanel = qs("[data-dashboard-private]");
+                login.hidden = loggedIn;
+                privatePanel.hidden = !loggedIn;
+                if (!loggedIn) return;
+                var profile = readJson(profileKey, {});
+                var bookings = readJson(bookingKey, []);
+                var requests = readJson(requestKey, []);
+                qs("[data-dashboard-team]").textContent = (profile.teamName || "Your team") + " dashboard";
+                qs("[data-stat-total]").textContent = bookings.length;
+                qs("[data-stat-pending]").textContent = bookings.filter(function (booking) { return statusFor(booking) === "Pending"; }).length;
+                qs("[data-stat-confirmed]").textContent = bookings.filter(function (booking) { return statusFor(booking) === "Confirmed"; }).length;
+                qs("[data-stat-cancelled]").textContent = bookings.filter(function (booking) { return statusFor(booking) === "Cancelled"; }).length;
+                renderIncomingRequests(profile);
+                var body = qs("[data-booking-rows]");
+                body.textContent = "";
+                bookings.slice().reverse().forEach(function (booking) {
+                    var row = document.createElement("tr");
+                    row.innerHTML = "<td>" + (booking.type === "stadium" ? "Cricket Stadium" : "Indoor Arena") + "</td><td>" + (booking.date || "-") + " " + (booking.time || "") + "</td><td>" + (booking.teamName || profile.teamName || "Team") + "</td><td>" + money(booking.total) + "</td><td><span class=\"" + pillClass(statusFor(booking)) + "\">" + statusFor(booking) + "</span></td>";
+                    body.appendChild(row);
+                });
+                qs("[data-booking-empty]").hidden = bookings.length > 0;
+                var list = qs("[data-dashboard-notifications]");
+                list.textContent = "";
+                var notes = bookings.slice().reverse().map(function (booking) {
+                    return { title: statusFor(booking) + " booking", text: (booking.type === "stadium" ? "Stadium match" : "Arena slot") + " for " + (booking.date || "selected date") + " is " + statusFor(booking).toLowerCase() + "." };
+                });
+                requests.slice().reverse().forEach(function (request) {
+                    if (request.requesterTeamId === currentTeamId(profile)) {
+                        notes.unshift({ title: request.status + " match request", text: "Request sent to " + (request.targetTeamIds || []).length + " team(s) for " + (request.date || "selected date") + "." });
+                    }
+                });
+                notes.unshift({ title: "Team chat", text: "Open the notification or chat icon to review team updates." });
+                notes.slice(0, 8).forEach(function (note) {
+                    var item = document.createElement("article");
+                    item.className = "notification-item";
+                    item.innerHTML = "<strong>" + note.title + "</strong><span>" + note.text + "</span>";
+                    list.appendChild(item);
+                });
+            }
+            document.addEventListener("click", function (event) {
+                var accept = event.target.closest("[data-accept-request]");
+                var decline = event.target.closest("[data-decline-request]");
+                if (accept) {
+                    respondToRequest(accept.getAttribute("data-accept-request"), "Accepted");
+                }
+                if (decline) {
+                    respondToRequest(decline.getAttribute("data-decline-request"), "Declined");
+                }
+            });
+            render();
+        }());
+    </script>
+    <script type="text/javascript" src="javascript/main.js"></script>
+</body>
+</html>
