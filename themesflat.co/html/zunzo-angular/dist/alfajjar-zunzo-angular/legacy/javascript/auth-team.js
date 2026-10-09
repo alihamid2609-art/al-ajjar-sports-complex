@@ -200,11 +200,13 @@
             ".team-notification-title h2{margin:0;color:#20231f;font-family:Oswald,sans-serif;font-size:20px;line-height:1;text-transform:uppercase}",
             ".team-notification-title a,.team-notification-title button{border:0;background:transparent;color:#506329;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.04em}",
             ".team-notification-list{max-height:min(390px,65vh);overflow:auto}",
-            ".team-notification-item{display:grid;gap:4px;padding:14px 18px;border-bottom:1px solid #f0f1ed;background:#fff}",
+            ".team-notification-item{display:grid;width:100%;gap:4px;padding:14px 18px;border:0;border-bottom:1px solid #f0f1ed;background:#fff;text-align:left}",
+            ".team-notification-item:hover{background:#f7f9ef}",
             ".team-notification-item.unread{background:#f6f9ea}",
             ".team-notification-item strong{color:#20231f;font-size:14px}",
             ".team-notification-item span{color:#62675e;font-size:12px;line-height:1.45}",
             ".team-notification-empty{margin:0;padding:18px;color:#777b73;font-size:13px}",
+            ".team-notification-detail{padding:18px}.team-notification-detail h3{margin:10px 0 8px;color:#20231f;font-family:Oswald,sans-serif;font-size:23px;line-height:1.1;text-transform:uppercase}.team-notification-detail p{margin:0;color:#62675e;font-size:13px;line-height:1.6}.team-notification-detail time{display:block;margin-top:14px;color:#80867a;font-size:11px}.team-notification-back{padding:0;border:0;background:transparent;color:#506329;font-size:12px;font-weight:700;text-transform:uppercase}",
             "@media(max-width:991px){#mainnav-mobi .team-chat-nav{position:static}#mainnav-mobi .team-chat-header-panel{position:fixed;top:72px;right:12px;left:12px;width:auto;max-height:calc(100vh - 88px)}#mainnav-mobi .team-chat-header-list{max-height:calc(100vh - 180px)}}",
             "@media(max-width:991px){#mainnav-mobi .team-notification-nav{position:static}#mainnav-mobi .team-notification-panel{position:fixed;top:72px;right:12px;left:12px;width:auto;max-height:calc(100vh - 88px)}#mainnav-mobi .team-notification-list{max-height:calc(100vh - 180px)}}",
             "#mainnav li.team-profile-nav.open>ul{opacity:1;visibility:visible;transform:translate(0,0)}",
@@ -394,6 +396,10 @@
 
         var oldTeamButton = qs(".header-right .btn-contact");
         if (oldTeamButton) oldTeamButton.remove();
+        qsa("#mainnav a[href='event-details.html']").forEach(function (link) {
+            var item = link.closest("li");
+            if (item) item.remove();
+        });
     }
 
     function bindHeaderProfileMenu() {
@@ -482,18 +488,49 @@
         if (!isLoggedIn()) {
             return [{ id: "login-required", time: 0, title: "Login required", text: "Login to see booking, chat, and team notifications." }];
         }
-        var bookings = readJson("alfajjarBookings", []);
-        var items = bookings.slice().reverse().map(function (booking) {
+        var profile = getProfile();
+        var teamId = profile.directoryId || "team-" + String(profile.email || "local").toLowerCase().replace(/[^a-z0-9]+/g, "-");
+        var bookings = readJson("alfajjarBookings", []).filter(function (booking) {
+            return String(booking.teamId || "") === String(teamId) || String(booking.opponentTeamId || "") === String(teamId);
+        });
+        var items = bookings.map(function (booking) {
             var facility = booking.type === "stadium" ? "Stadium match" : "Arena slot";
             return {
-                id: booking.id || [booking.type, booking.date, booking.time, booking.createdAt].join("-"),
+                id: "booking-" + (booking.id || [booking.type, booking.date, booking.time, booking.createdAt].join("-")),
                 time: Date.parse(booking.createdAt || booking.date || "") || 1,
                 title: bookingStatus(booking) + " booking",
-                text: facility + " for " + (booking.date || "selected date") + " is " + bookingStatus(booking).toLowerCase() + "."
+                text: facility + " for " + (booking.date || "selected date") + " at " + (booking.time || "the selected time") + " is " + bookingStatus(booking).toLowerCase() + ".",
+                detail: "Booking total: PKR " + Number(booking.total || 0).toLocaleString("en-PK") + ". " + (booking.notes || "No booking notes were added.")
             };
         });
-        items.unshift({ id: "team-chat", time: 1, title: "Team chats", text: "Open chat to connect with listed teams and captains." });
-        return items;
+        readJson("alfajjarMatchRequests", []).filter(function (request) {
+            return String(request.requesterTeamId || "") === String(teamId) || (request.targetTeamIds || []).map(String).indexOf(String(teamId)) !== -1;
+        }).forEach(function (request) {
+            var sentByUs = String(request.requesterTeamId || "") === String(teamId);
+            var response = request.responses && request.responses[teamId];
+            items.push({
+                id: "request-" + (request.id || Date.parse(request.createdAt || "")),
+                time: Date.parse(request.createdAt || "") || 1,
+                title: sentByUs ? request.status + " match request" : (response || "New") + " match request",
+                text: sentByUs ? "Your Stadium request is for " + (request.date || "the selected date") + "." : (request.requesterTeamName || "A team") + " requested a match on " + (request.date || "the selected date") + ".",
+                detail: "Match time: " + (request.time || "Not set") + ". Teams selected: " + (request.targetTeamIds || []).length + ". " + (request.notes || "No additional request notes.")
+            });
+        });
+        var chats = readJson("alfajjarTeamChats", {});
+        Object.keys(chats).forEach(function (key) {
+            if (key.split("::").indexOf(String(teamId)) === -1) return;
+            var messages = Array.isArray(chats[key]) ? chats[key] : [];
+            var latest = messages.slice().reverse().find(function (message) { return String(message.senderId || "") !== String(teamId) && !message.deletedForEveryone; });
+            if (!latest) return;
+            items.push({
+                id: "chat-" + (latest.id || latest.sentAt || key),
+                time: Date.parse(latest.sentAt || "") || 1,
+                title: "New team message",
+                text: latest.text || (latest.attachment ? "Sent an attachment." : "You have a new chat update."),
+                detail: "Open Team Community from the header chat icon to reply or view the conversation."
+            });
+        });
+        return items.sort(function (left, right) { return right.time - left.time; });
     }
 
     function bindHeaderNotifications() {
@@ -510,23 +547,49 @@
         if (markRead) {
             markRead.addEventListener("click", function (event) {
                 event.preventDefault();
-                localStorage.setItem("alfajjarNotificationsReadAt", String(Date.now()));
+                var readItems = readJson("alfajjarNotificationReads", {});
+                notificationItems().forEach(function (item) { readItems[item.id] = Date.now(); });
+                localStorage.setItem("alfajjarNotificationReads", JSON.stringify(readItems));
                 renderHeaderNotifications();
             });
         }
+        list.addEventListener("click", function (event) {
+            var back = event.target.closest("[data-notification-back]");
+            if (back) {
+                renderHeaderNotifications();
+                return;
+            }
+            var item = event.target.closest("[data-notification-id]");
+            if (!item) return;
+            var readItems = readJson("alfajjarNotificationReads", {});
+            readItems[item.getAttribute("data-notification-id")] = Date.now();
+            localStorage.setItem("alfajjarNotificationReads", JSON.stringify(readItems));
+            renderHeaderNotifications(item.getAttribute("data-notification-id"));
+        });
     }
 
-    function renderHeaderNotifications() {
+    function renderHeaderNotifications(selectedId) {
         var list = qs("[data-team-notification-list]");
         var count = qs("[data-team-notification-count]");
         if (!list) return;
         var items = notificationItems();
-        var readAt = Number(localStorage.getItem("alfajjarNotificationsReadAt") || 0);
-        var unread = isLoggedIn() ? items.filter(function (item) { return (item.time || 0) > readAt; }).length : items.length;
+        var readItems = readJson("alfajjarNotificationReads", {});
+        var unread = isLoggedIn() ? items.filter(function (item) { return !readItems[item.id]; }).length : items.length;
         list.textContent = "";
         if (count) {
             count.textContent = String(unread);
             count.hidden = !unread;
+        }
+        var selected = selectedId && items.find(function (item) { return item.id === selectedId; });
+        if (selected) {
+            var detail = document.createElement("section");
+            detail.className = "team-notification-detail";
+            detail.innerHTML = "<button type=\"button\" class=\"team-notification-back\" data-notification-back>Back to notifications</button><h3></h3><p></p><time></time>";
+            detail.querySelector("h3").textContent = selected.title;
+            detail.querySelector("p").textContent = selected.text + " " + (selected.detail || "");
+            detail.querySelector("time").textContent = selected.time > 1 ? new Date(selected.time).toLocaleString() : "Current update";
+            list.appendChild(detail);
+            return;
         }
         if (!items.length) {
             var empty = document.createElement("p");
@@ -535,10 +598,12 @@
             list.appendChild(empty);
             return;
         }
-        items.slice(0, 8).forEach(function (item) {
-            var article = document.createElement("article");
+        items.forEach(function (item) {
+            var article = document.createElement("button");
+            article.type = "button";
             article.className = "team-notification-item";
-            if (!readAt || (item.time || 0) > readAt) article.classList.add("unread");
+            article.setAttribute("data-notification-id", item.id);
+            if (!readItems[item.id]) article.classList.add("unread");
             var title = document.createElement("strong");
             title.textContent = item.title;
             var text = document.createElement("span");
@@ -679,7 +744,7 @@
         var statusFilter = (qs("[data-member-status-filter]") || {}).value || "";
         var normalizedSearch = search.trim().toLowerCase();
         var members = (profile.members || []).filter(function (member) {
-            var matchesSearch = !normalizedSearch || [member.name, member.phone].some(function (value) {
+            var matchesSearch = !normalizedSearch || [member.name, member.phone, member.email, member.jerseyNumber].some(function (value) {
                 return String(value || "").toLowerCase().indexOf(normalizedSearch) !== -1;
             });
             return matchesSearch && (!roleFilter || member.role === roleFilter) && (!statusFilter || member.status === statusFilter);
@@ -699,7 +764,10 @@
             var roleCell = document.createElement("td");
             roleCell.textContent = member.role || "-";
             var phoneCell = document.createElement("td");
-            phoneCell.textContent = member.phone || "-";
+            phoneCell.textContent = member.phone || member.email || "-";
+            if (member.phone && member.email) phoneCell.title = member.email;
+            var jerseyCell = document.createElement("td");
+            jerseyCell.textContent = member.jerseyNumber || "-";
             var statusCell = document.createElement("td");
             var statusPill = document.createElement("span");
             statusPill.className = "status-pill" + (member.status === "Inactive" ? " inactive" : "");
@@ -732,6 +800,7 @@
             row.appendChild(nameCell);
             row.appendChild(roleCell);
             row.appendChild(phoneCell);
+            row.appendChild(jerseyCell);
             row.appendChild(statusCell);
             row.appendChild(actionCell);
             body.appendChild(row);
@@ -753,6 +822,7 @@
         if (localStorage.getItem(profileKey)) saveProfile(profile);
         var teamForm = qs("[data-team-form]");
         var addressForm = qs("[data-address-form]");
+        var preferencesForm = qs("[data-preferences-form]");
         var memberForm = qs("[data-member-form]");
         var memberModalElement = qs("#memberFormModal");
         var detailsModalElement = qs("#memberDetailsModal");
@@ -777,6 +847,7 @@
 
         if (teamForm) fillForm(teamForm, profile);
         if (addressForm) fillForm(addressForm, profile);
+        if (preferencesForm) fillForm(preferencesForm, profile);
         syncLogoPreview();
         renderMembers(profile);
 
@@ -831,7 +902,7 @@
             teamForm.addEventListener("submit", function (event) {
                 event.preventDefault();
                 var data = new FormData(teamForm);
-                ["teamName", "captainName", "email", "phone", "category"].forEach(function (key) {
+                ["teamName", "shortName", "captainName", "viceCaptain", "email", "phone", "whatsapp", "category", "teamLevel", "foundedYear", "homeGround"].forEach(function (key) {
                     profile[key] = data.get(key);
                 });
                 saveProfile(profile);
@@ -845,11 +916,23 @@
             addressForm.addEventListener("submit", function (event) {
                 event.preventDefault();
                 var data = new FormData(addressForm);
-                ["address", "city", "area", "notes"].forEach(function (key) {
+                ["address", "city", "area", "district", "postalCode", "notes"].forEach(function (key) {
                     profile[key] = data.get(key);
                 });
                 saveProfile(profile);
                 showInlineMessage("[data-address-message]", "Address details updated.");
+            });
+        }
+
+        if (preferencesForm) {
+            preferencesForm.addEventListener("submit", function (event) {
+                event.preventDefault();
+                var data = new FormData(preferencesForm);
+                ["preferredFacility", "preferredTime", "matchFormat", "jerseyColors", "availableDays", "matchPreferences"].forEach(function (key) {
+                    profile[key] = data.get(key);
+                });
+                saveProfile(profile);
+                showInlineMessage("[data-preferences-message]", "Match preferences updated.");
             });
         }
 
@@ -864,6 +947,8 @@
                     name: data.get("name"),
                     role: data.get("role"),
                     phone: data.get("phone"),
+                    email: data.get("email"),
+                    jerseyNumber: data.get("jerseyNumber"),
                     status: data.get("status")
                 };
 
@@ -910,6 +995,8 @@
                     qs("[data-detail-name]").textContent = detailMember.name || "Unnamed member";
                     qs("[data-detail-role]").textContent = detailMember.role || "-";
                     qs("[data-detail-phone]").textContent = detailMember.phone || "Not provided";
+                    qs("[data-detail-email]").textContent = detailMember.email || "Not provided";
+                    qs("[data-detail-jersey]").textContent = detailMember.jerseyNumber || "Not assigned";
                     qs("[data-detail-status]").textContent = detailMember.status || "Active";
                     if (detailsModal) detailsModal.show();
                 }

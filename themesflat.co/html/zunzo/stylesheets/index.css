@@ -28,7 +28,11 @@
 .tf-widget-course,
 .tf-widget-testimonial,
 .tf-widget-team,
-.tf-widget-blog {
+.tf-widget-blog,
+.tf-benefit,
+.tf-widget-event,
+.tf-widget-retinal,
+.tf-widget-counter {
     display: none !important;
 }
 

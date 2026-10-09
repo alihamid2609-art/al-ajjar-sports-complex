@@ -22,7 +22,7 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/magnific-popup.min.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/map.min.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/event-details.css">
-    <link href="images/icon/favicon.png" rel="shortcut icon">
+    <link href="images/al-fajar/facicon2.png?v=20261009" rel="shortcut icon">
 </head>
 <body class="header-sticky">
     <div class="preload preload-container">
@@ -37,13 +37,22 @@
             <img src="images/stadium/stad4.jpg" alt="Al Fajjar Sports Complex booking details">
             <div class="themeflat-container">
                 <p class="booking-detail-kicker">Booking details</p>
-                <h1>Clear rules for arena hours, stadium matches, and team bookings</h1>
-                <p>Use this page to understand how bookings work before sending a request from the booking page.</p>
+                <h1 data-booking-detail-title>Booking details</h1>
+                <p data-booking-detail-subtitle>Open a booking from your dashboard to view its complete record.</p>
             </div>
         </section>
 
         <section class="booking-detail-section">
             <div class="themeflat-container">
+                <section class="selected-booking" data-selected-booking>
+                    <div class="selected-booking-empty" data-booking-detail-empty>
+                        <p class="booking-detail-kicker">Your booking record</p>
+                        <h2>No booking selected</h2>
+                        <p>Select a booking from your dashboard to see its complete facility, fixture, status, and payment summary.</p>
+                        <a href="dashboard.html" class="detail-secondary">Open dashboard</a>
+                    </div>
+                    <div data-booking-detail-content hidden></div>
+                </section>
                 <div class="booking-detail-grid">
                     <article class="booking-detail-card featured">
                         <img src="images/arena/arena2.jpg" alt="Indoor arena hourly cricket">
@@ -114,6 +123,40 @@
     <script type="text/javascript" src="javascript/jquery-waypoints.js"></script>
     <script type="text/javascript" src="javascript/jquery-countTo.js"></script>
     <script type="text/javascript" src="javascript/auth-team.js"></script>
+    <script>
+        (function () {
+            "use strict";
+            var bookingId = new URLSearchParams(window.location.search).get("id");
+            if (!bookingId) return;
+            function readJson(key, fallback) {
+                try { return JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback)); }
+                catch (error) { return fallback; }
+            }
+            function escapeHtml(value) {
+                return String(value === undefined || value === null ? "" : value)
+                    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+                    .replace(/\"/g, "&quot;").replace(/'/g, "&#39;");
+            }
+            var profile = readJson("alfajjarTeamProfile", {});
+            var teamId = profile.directoryId || "";
+            var booking = readJson("alfajjarBookings", []).find(function (item) {
+                return String(item.id) === String(bookingId) && (String(item.teamId || "") === String(teamId) || String(item.opponentTeamId || "") === String(teamId));
+            });
+            if (!booking) return;
+            var facility = booking.type === "stadium" ? "Cricket Stadium" : "Indoor Arena";
+            var fixture = booking.opponentTeam ? "vs " + booking.opponentTeam : "Private team session";
+            var duration = booking.hours ? booking.hours + " hour" + (Number(booking.hours) === 1 ? "" : "s") : "Match booking";
+            var status = booking.status || "Pending";
+            var image = booking.type === "stadium" ? "images/stadium/stad4.jpg" : "images/arena/arena2.jpg";
+            document.querySelector(".booking-detail-hero img").src = image;
+            document.querySelector("[data-booking-detail-title]").textContent = facility + " booking";
+            document.querySelector("[data-booking-detail-subtitle]").textContent = "Your booking record for " + (booking.date || "the selected date") + ".";
+            document.querySelector("[data-booking-detail-empty]").hidden = true;
+            var content = document.querySelector("[data-booking-detail-content]");
+            content.hidden = false;
+            content.innerHTML = "<div class=\"selected-booking-heading\"><div><p class=\"booking-detail-kicker\">Booking reference</p><h2>" + escapeHtml(booking.id) + "</h2></div><span class=\"booking-status booking-status-" + escapeHtml(status.toLowerCase()) + "\">" + escapeHtml(status) + "</span></div><div class=\"selected-booking-widgets\"><article><span>Facility</span><strong>" + escapeHtml(facility) + "</strong><small>" + escapeHtml(duration) + "</small></article><article><span>Date and time</span><strong>" + escapeHtml(booking.date || "Not set") + "</strong><small>" + escapeHtml(booking.time || "Not set") + "</small></article><article><span>Fixture</span><strong>" + escapeHtml(fixture) + "</strong><small>" + escapeHtml(booking.teamName || profile.teamName || "Your team") + "</small></article><article><span>Booking total</span><strong>PKR " + Number(booking.total || 0).toLocaleString("en-PK") + "</strong><small>" + escapeHtml(booking.rateType || "Facility rate") + "</small></article></div><div class=\"selected-booking-notes\"><strong>Captain notes</strong><p>" + escapeHtml(booking.notes || "No additional notes were added for this booking.") + "</p></div>";
+        }());
+    </script>
     <script type="text/javascript" src="javascript/main.js"></script>
 </body>
 </html>

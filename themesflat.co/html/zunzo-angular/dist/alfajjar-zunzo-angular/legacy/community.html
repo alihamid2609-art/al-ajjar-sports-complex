@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/responsive.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/colors/color1.css" id="colors">
     <link rel="stylesheet" type="text/css" href="stylesheets/community.css">
-    <link href="images/icon/favicon.png" rel="shortcut icon">
+    <link href="images/al-fajar/facicon2.png?v=20261009" rel="shortcut icon">
 </head>
 
 <body class="header-sticky community-page">
@@ -29,11 +29,20 @@
             <header class="community-heading">
                 <div>
                     <p class="community-kicker">Al Fajjar Sports Complex</p>
-                    <h1>Team Community</h1>
-                    <p class="community-intro">Find teams across every sport, explore their profiles, and start a conversation.</p>
+                    <h1>Find Your Next Fixture</h1>
+                    <p class="community-intro">Discover registered local teams, review their squad profile, and start a conversation before arranging a Stadium match.</p>
                 </div>
-                <p class="community-demo-note">Local demo: directory and messages are stored in this browser only.</p>
+                <div class="community-heading-actions">
+                    <a href="event.html" class="community-heading-primary">Book a facility</a>
+                    <a href="profile.html" class="community-heading-secondary">Manage my team</a>
+                </div>
             </header>
+
+            <section class="community-summary" aria-label="Community summary">
+                <article><span>Registered teams</span><strong data-directory-total>0</strong></article>
+                <article><span>Sports represented</span><strong data-sport-total>0</strong></article>
+                <article><span>How it works</span><strong>Connect, then play</strong></article>
+            </section>
 
             <div class="community-tabs" role="tablist" aria-label="Community views">
                 <button type="button" class="community-tab active" role="tab" aria-selected="true" data-community-tab="directory">Team directory</button>
@@ -52,6 +61,7 @@
                             <option value="">All sports</option>
                             <option>Cricket</option>
                             <option>Football</option>
+                            <option>Futsal</option>
                             <option>Basketball</option>
                             <option>Volleyball</option>
                             <option>Multi Sport</option>

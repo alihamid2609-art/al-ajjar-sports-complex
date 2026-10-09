@@ -145,6 +145,15 @@
 
         qs("[data-directory-empty]").hidden = teams.length > 0;
         qs("[data-team-result-count]").textContent = teams.length + (teams.length === 1 ? " team" : " teams");
+        var allTeams = getTeams();
+        var totalElement = qs("[data-directory-total]");
+        var sportElement = qs("[data-sport-total]");
+        if (totalElement) totalElement.textContent = String(allTeams.length);
+        if (sportElement) {
+            var sports = {};
+            allTeams.forEach(function (team) { if (team.category) sports[team.category] = true; });
+            sportElement.textContent = String(Object.keys(sports).length);
+        }
     }
 
     function showTeamDetails(teamId) {

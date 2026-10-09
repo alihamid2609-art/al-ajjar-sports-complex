@@ -18,7 +18,7 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/animate.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/animate.min.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/dashboard.css">
-    <link href="images/icon/favicon.png" rel="shortcut icon">
+    <link href="images/al-fajar/facicon2.png?v=20261009" rel="shortcut icon">
 </head>
 <body class="header-sticky dashboard-page">
     <div class="preload preload-container">
@@ -46,48 +46,113 @@
                 </div>
 
                 <div class="dashboard-private" data-dashboard-private hidden>
+                    <section class="team-overview" aria-label="Team overview">
+                        <div class="team-overview-identity">
+                            <span class="team-overview-logo" data-team-logo>AF</span>
+                            <div>
+                                <p class="dashboard-kicker">Team account</p>
+                                <h2 data-team-name>Your team</h2>
+                                <p data-team-meta>Captain and team details</p>
+                            </div>
+                        </div>
+                        <div class="team-overview-actions">
+                            <a href="profile.html" class="dashboard-text-link">Edit team profile</a>
+                            <a href="event.html" class="dashboard-primary-link">Book a facility</a>
+                        </div>
+                    </section>
+
                     <div class="dashboard-stats">
-                        <article><span>Total bookings</span><strong data-stat-total>0</strong></article>
-                        <article><span>Pending</span><strong data-stat-pending>0</strong></article>
-                        <article><span>Confirmed</span><strong data-stat-confirmed>0</strong></article>
-                        <article><span>Cancelled</span><strong data-stat-cancelled>0</strong></article>
+                        <article><span>My bookings</span><strong data-stat-total>0</strong></article>
+                        <article><span>Action needed</span><strong data-stat-pending>0</strong></article>
+                        <article><span>Confirmed slots</span><strong data-stat-confirmed>0</strong></article>
+                        <article><span>Match requests sent</span><strong data-stat-sent>0</strong></article>
                     </div>
 
+                    <section class="owner-widget-grid" aria-label="Team owner tools">
+                        <article class="owner-widget">
+                            <p class="dashboard-kicker">Squad</p>
+                            <strong data-squad-count>0 active players</strong>
+                            <span data-squad-copy>Add your full playing squad before arranging fixtures.</span>
+                            <a href="profile.html">Manage players</a>
+                        </article>
+                        <article class="owner-widget">
+                            <p class="dashboard-kicker">Match preferences</p>
+                            <strong data-preference-title>Not set yet</strong>
+                            <span data-preference-copy>Set availability and match format so teams know what suits you.</span>
+                            <a href="profile.html">Update preferences</a>
+                        </article>
+                        <article class="owner-widget owner-widget-actions">
+                            <p class="dashboard-kicker">Captain actions</p>
+                            <div>
+                                <a href="event.html">Book facility</a>
+                                <a href="community.html">Find teams</a>
+                                <button type="button" data-open-team-chat>Open team chats</button>
+                            </div>
+                        </article>
+                    </section>
+
                     <div class="dashboard-grid">
+                        <section class="dashboard-panel dashboard-next-booking">
+                            <div class="panel-heading">
+                                <div>
+                                    <p class="dashboard-kicker">Your next slot</p>
+                                    <h2>Upcoming booking</h2>
+                                </div>
+                                <a href="event.html">New booking</a>
+                            </div>
+                            <div data-next-booking></div>
+                        </section>
+
+                        <aside class="dashboard-panel dashboard-profile-panel">
+                            <div class="panel-heading">
+                                <div>
+                                    <p class="dashboard-kicker">Team readiness</p>
+                                    <h2>Profile status</h2>
+                                </div>
+                            </div>
+                            <div class="profile-status" data-profile-status></div>
+                        </aside>
+
                         <section class="dashboard-panel dashboard-requests-panel">
                             <div class="panel-heading">
                                 <div>
                                     <p class="dashboard-kicker">Team match requests</p>
-                                    <h2>Requests waiting for you</h2>
+                                    <h2>Requests and responses</h2>
                                 </div>
                             </div>
-                            <div class="request-list" data-incoming-requests></div>
-                            <p class="dashboard-empty" data-request-empty>No pending match requests for your team.</p>
+                            <div class="request-tabs" role="tablist" aria-label="Match request lists">
+                                <button type="button" class="is-active" data-request-filter="incoming">Need response</button>
+                                <button type="button" data-request-filter="sent">Sent by us</button>
+                                <button type="button" data-request-filter="history">History</button>
+                            </div>
+                            <div class="request-list" data-request-list></div>
+                            <p class="dashboard-empty" data-request-empty>No requests to show here.</p>
                         </section>
 
-                        <section class="dashboard-panel">
+                        <section class="dashboard-panel dashboard-bookings-panel">
                             <div class="panel-heading">
                                 <div>
-                                    <p class="dashboard-kicker">Booking requests</p>
-                                    <h2>All bookings</h2>
+                                    <p class="dashboard-kicker">Facility schedule</p>
+                                    <h2>My bookings</h2>
                                 </div>
-                                <a href="event.html">New booking</a>
+                                <a href="event.html">Book facility</a>
                             </div>
                             <div class="dashboard-table-wrap">
                                 <table class="dashboard-table">
-                                    <thead><tr><th>Facility</th><th>Date</th><th>Team</th><th>Total</th><th>Status</th></tr></thead>
+                                    <thead><tr><th>Facility</th><th>Date &amp; time</th><th>Fixture</th><th>Total</th><th>Status</th><th></th></tr></thead>
                                     <tbody data-booking-rows></tbody>
                                 </table>
                                 <p class="dashboard-empty" data-booking-empty>No bookings yet. Create your first booking request.</p>
                             </div>
                         </section>
 
-                        <aside class="dashboard-panel">
+                        <aside class="dashboard-panel dashboard-notifications-panel">
                             <div class="panel-heading">
                                 <div>
                                     <p class="dashboard-kicker">Notifications</p>
                                     <h2>Latest updates</h2>
                                 </div>
+                                <button type="button" class="dashboard-text-button" data-dashboard-read-all>Mark all read</button>
                             </div>
                             <div class="notification-list" data-dashboard-notifications></div>
                         </aside>
@@ -118,6 +183,8 @@
             var profileKey = "alfajjarTeamProfile";
             var bookingKey = "alfajjarBookings";
             var requestKey = "alfajjarMatchRequests";
+            var readKey = "alfajjarDashboardReadAt";
+            var activeRequestFilter = "incoming";
             function qs(selector) { return document.querySelector(selector); }
             function readJson(key, fallback) {
                 try { return JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback)); }
@@ -128,6 +195,22 @@
             function statusFor(booking) { return booking.status || "Pending"; }
             function pillClass(status) { return "status-pill status-" + String(status || "Pending").toLowerCase(); }
             function currentTeamId(profile) { return profile.directoryId || ""; }
+            function escapeHtml(value) {
+                return String(value === undefined || value === null ? "" : value)
+                    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+                    .replace(/\"/g, "&quot;").replace(/'/g, "&#39;");
+            }
+            function teamBookings(bookings, teamId) {
+                return bookings.filter(function (booking) {
+                    return String(booking.teamId || "") === String(teamId) || String(booking.opponentTeamId || "") === String(teamId);
+                });
+            }
+            function ownsRequest(request, teamId) {
+                return String(request.requesterTeamId || "") === String(teamId) || (request.targetTeamIds || []).map(String).indexOf(String(teamId)) !== -1;
+            }
+            function requestResponse(request, teamId) {
+                return (request.responses && request.responses[teamId]) || (request.acceptedTeamId === teamId ? "Accepted" : "");
+            }
             function isIncomingRequest(request, teamId) {
                 return request.status === "Pending"
                     && request.targetTeamIds
@@ -175,18 +258,109 @@
                 writeJson(requestKey, requests);
                 render();
             }
-            function renderIncomingRequests(profile) {
+            function renderRequests(profile) {
                 var teamId = currentTeamId(profile);
-                var requests = readJson(requestKey, []).filter(function (request) { return isIncomingRequest(request, teamId); });
-                var list = qs("[data-incoming-requests]");
+                var requests = readJson(requestKey, []).filter(function (request) { return ownsRequest(request, teamId); });
+                if (activeRequestFilter === "incoming") {
+                    requests = requests.filter(function (request) { return isIncomingRequest(request, teamId); });
+                } else if (activeRequestFilter === "sent") {
+                    requests = requests.filter(function (request) { return String(request.requesterTeamId || "") === String(teamId); });
+                } else {
+                    requests = requests.filter(function (request) { return !isIncomingRequest(request, teamId); });
+                }
+                var list = qs("[data-request-list]");
                 list.textContent = "";
                 requests.slice().reverse().forEach(function (request) {
                     var item = document.createElement("article");
                     item.className = "request-item";
-                    item.innerHTML = "<div><strong>" + (request.requesterTeamName || "Team") + "</strong><span>Stadium match request for " + (request.date || "selected date") + " at " + (request.time || "selected time") + "</span><small>" + money(request.total || 12000) + (request.notes ? " - " + request.notes : "") + "</small></div><div class=\"request-actions\"><button type=\"button\" data-accept-request=\"" + request.id + "\">Accept</button><button type=\"button\" data-decline-request=\"" + request.id + "\">Decline</button></div>";
+                    var sentByUs = String(request.requesterTeamId || "") === String(teamId);
+                    var response = requestResponse(request, teamId);
+                    var state = sentByUs ? request.status : (response || request.status);
+                    var title = sentByUs ? "Request sent to " + (request.targetTeamIds || []).length + " team(s)" : (request.requesterTeamName || "Team");
+                    var actions = isIncomingRequest(request, teamId)
+                        ? "<div class=\"request-actions\"><button type=\"button\" data-accept-request=\"" + escapeHtml(request.id) + "\">Accept</button><button type=\"button\" data-decline-request=\"" + escapeHtml(request.id) + "\">Decline</button></div>"
+                        : "<span class=\"" + pillClass(state) + "\">" + escapeHtml(state) + "</span>";
+                    item.innerHTML = "<div><strong>" + escapeHtml(title) + "</strong><span>Cricket Stadium - " + escapeHtml(request.date || "Selected date") + " at " + escapeHtml(request.time || "Selected time") + "</span><small>" + money(request.total || 12000) + (request.notes ? " - " + escapeHtml(request.notes) : "") + "</small></div>" + actions;
                     list.appendChild(item);
                 });
                 qs("[data-request-empty]").hidden = requests.length > 0;
+            }
+            function renderTeam(profile) {
+                var logo = qs("[data-team-logo]");
+                var name = profile.teamName || "Your team";
+                logo.textContent = name.split(/\s+/).map(function (word) { return word.charAt(0); }).join("").slice(0, 2).toUpperCase() || "T";
+                logo.classList.toggle("has-image", Boolean(profile.image));
+                logo.style.backgroundImage = profile.image ? "url('" + String(profile.image).replace(/'/g, "%27") + "')" : "";
+                qs("[data-team-name]").textContent = name;
+                qs("[data-team-meta]").textContent = [profile.captainName || "Captain not added", profile.category || "Sport not selected", (profile.members || []).length + " players"].join(" - ");
+                var profileFields = [profile.teamName, profile.captainName, profile.phone || profile.email, profile.category];
+                var completed = profileFields.filter(Boolean).length;
+                qs("[data-profile-status]").innerHTML = "<strong>" + completed + " of " + profileFields.length + " details complete</strong><span>Keep your captain contact and team details current so other teams can respond to requests.</span><a href=\"profile.html\">Complete profile</a>";
+            }
+            function renderOwnerWidgets(profile) {
+                var members = profile.members || [];
+                var activeMembers = members.filter(function (member) { return member.status !== "Inactive"; }).length;
+                qs("[data-squad-count]").textContent = activeMembers + " active player" + (activeMembers === 1 ? "" : "s");
+                qs("[data-squad-copy]").textContent = members.length
+                    ? members.length + " player" + (members.length === 1 ? "" : "s") + " saved in your roster."
+                    : "Add players, roles, contact details, and jersey numbers.";
+                var preferenceParts = [profile.preferredFacility, profile.preferredTime].filter(Boolean);
+                qs("[data-preference-title]").textContent = preferenceParts.length ? preferenceParts.join(" - ") : "Not set yet";
+                qs("[data-preference-copy]").textContent = profile.matchFormat || profile.availableDays || "Set availability and match format so teams know what suits you.";
+            }
+            function renderNextBooking(bookings, profile) {
+                var host = qs("[data-next-booking]");
+                var next = bookings.filter(function (booking) { return statusFor(booking) === "Confirmed"; }).slice().sort(function (a, b) {
+                    return String(a.date || "").localeCompare(String(b.date || "")) || String(a.time || "").localeCompare(String(b.time || ""));
+                })[0];
+                if (!next) {
+                    host.innerHTML = "<div class=\"next-booking-empty\"><strong>No confirmed booking yet</strong><span>Reserve the Indoor Arena directly, or send a Stadium match request to teams.</span><a href=\"event.html\">Create a booking</a></div>";
+                    return;
+                }
+                var facility = next.type === "stadium" ? "Cricket Stadium" : "Indoor Arena";
+                var fixture = next.opponentTeam ? "vs " + next.opponentTeam : (next.hours ? next.hours + " hour" + (next.hours > 1 ? "s" : "") : "Team session");
+                host.innerHTML = "<div class=\"next-booking-card\"><div><strong>" + escapeHtml(facility) + "</strong><span>" + escapeHtml(next.date || "Date pending") + " - " + escapeHtml(next.time || "Time pending") + "</span><small>" + escapeHtml(fixture) + "</small></div><span class=\"" + pillClass(statusFor(next)) + "\">Confirmed</span></div>";
+            }
+            function renderBookings(bookings, profile) {
+                var body = qs("[data-booking-rows]");
+                body.textContent = "";
+                bookings.slice().reverse().forEach(function (booking) {
+                    var row = document.createElement("tr");
+                    var facility = booking.type === "stadium" ? "Cricket Stadium" : "Indoor Arena";
+                    var fixture = booking.opponentTeam ? "vs " + booking.opponentTeam : (booking.hours ? booking.hours + " hour" + (booking.hours > 1 ? "s" : "") : "Team session");
+                    var cancel = statusFor(booking) !== "Cancelled" ? "<button type=\"button\" class=\"table-action table-action-cancel\" data-cancel-booking=\"" + escapeHtml(booking.id) + "\">Cancel</button>" : "";
+                    var view = "<a class=\"table-action\" href=\"event-details.html?id=" + encodeURIComponent(booking.id || "") + "\">View</a>";
+                    row.innerHTML = "<td><strong>" + escapeHtml(facility) + "</strong></td><td>" + escapeHtml(booking.date || "-") + "<small>" + escapeHtml(booking.time || "") + "</small></td><td>" + escapeHtml(fixture) + "</td><td>" + money(booking.total) + "</td><td><span class=\"" + pillClass(statusFor(booking)) + "\">" + escapeHtml(statusFor(booking)) + "</span></td><td class=\"booking-table-actions\">" + view + cancel + "</td>";
+                    body.appendChild(row);
+                });
+                qs("[data-booking-empty]").hidden = bookings.length > 0;
+            }
+            function renderNotifications(bookings, requests, profile) {
+                var teamId = currentTeamId(profile);
+                var readAt = Number(localStorage.getItem(readKey) || 0);
+                var notes = bookings.map(function (booking) {
+                    return { time: Date.parse(booking.createdAt || "") || 1, title: statusFor(booking) + " booking", text: (booking.type === "stadium" ? "Stadium match" : "Arena slot") + " on " + (booking.date || "selected date") + "." };
+                }).concat(requests.map(function (request) {
+                    var sent = String(request.requesterTeamId || "") === String(teamId);
+                    return { time: Date.parse(request.createdAt || "") || 1, title: sent ? request.status + " match request" : (requestResponse(request, teamId) || "New") + " match request", text: sent ? "Your request is scheduled for " + (request.date || "selected date") + "." : "A team requested a Stadium match on " + (request.date || "selected date") + "." };
+                })).sort(function (a, b) { return b.time - a.time; });
+                var list = qs("[data-dashboard-notifications]");
+                list.textContent = "";
+                notes.slice(0, 6).forEach(function (note) {
+                    var item = document.createElement("article");
+                    item.className = "notification-item" + (note.time > readAt ? " unread" : "");
+                    item.innerHTML = "<strong>" + escapeHtml(note.title) + "</strong><span>" + escapeHtml(note.text) + "</span>";
+                    list.appendChild(item);
+                });
+                if (!notes.length) list.innerHTML = "<p class=\"dashboard-empty\">No updates yet. Booking and match activity will appear here.</p>";
+            }
+            function cancelBooking(id) {
+                var bookings = readJson(bookingKey, []).map(function (booking) {
+                    if (booking.id === id && statusFor(booking) !== "Cancelled") booking.status = "Cancelled";
+                    return booking;
+                });
+                writeJson(bookingKey, bookings);
+                render();
             }
             function render() {
                 var loggedIn = localStorage.getItem(sessionKey) === "active";
@@ -196,39 +370,20 @@
                 privatePanel.hidden = !loggedIn;
                 if (!loggedIn) return;
                 var profile = readJson(profileKey, {});
-                var bookings = readJson(bookingKey, []);
-                var requests = readJson(requestKey, []);
+                var teamId = currentTeamId(profile);
+                var bookings = teamBookings(readJson(bookingKey, []), teamId);
+                var requests = readJson(requestKey, []).filter(function (request) { return ownsRequest(request, teamId); });
                 qs("[data-dashboard-team]").textContent = (profile.teamName || "Your team") + " dashboard";
+                renderTeam(profile);
+                renderOwnerWidgets(profile);
                 qs("[data-stat-total]").textContent = bookings.length;
-                qs("[data-stat-pending]").textContent = bookings.filter(function (booking) { return statusFor(booking) === "Pending"; }).length;
+                qs("[data-stat-pending]").textContent = requests.filter(function (request) { return isIncomingRequest(request, teamId); }).length;
                 qs("[data-stat-confirmed]").textContent = bookings.filter(function (booking) { return statusFor(booking) === "Confirmed"; }).length;
-                qs("[data-stat-cancelled]").textContent = bookings.filter(function (booking) { return statusFor(booking) === "Cancelled"; }).length;
-                renderIncomingRequests(profile);
-                var body = qs("[data-booking-rows]");
-                body.textContent = "";
-                bookings.slice().reverse().forEach(function (booking) {
-                    var row = document.createElement("tr");
-                    row.innerHTML = "<td>" + (booking.type === "stadium" ? "Cricket Stadium" : "Indoor Arena") + "</td><td>" + (booking.date || "-") + " " + (booking.time || "") + "</td><td>" + (booking.teamName || profile.teamName || "Team") + "</td><td>" + money(booking.total) + "</td><td><span class=\"" + pillClass(statusFor(booking)) + "\">" + statusFor(booking) + "</span></td>";
-                    body.appendChild(row);
-                });
-                qs("[data-booking-empty]").hidden = bookings.length > 0;
-                var list = qs("[data-dashboard-notifications]");
-                list.textContent = "";
-                var notes = bookings.slice().reverse().map(function (booking) {
-                    return { title: statusFor(booking) + " booking", text: (booking.type === "stadium" ? "Stadium match" : "Arena slot") + " for " + (booking.date || "selected date") + " is " + statusFor(booking).toLowerCase() + "." };
-                });
-                requests.slice().reverse().forEach(function (request) {
-                    if (request.requesterTeamId === currentTeamId(profile)) {
-                        notes.unshift({ title: request.status + " match request", text: "Request sent to " + (request.targetTeamIds || []).length + " team(s) for " + (request.date || "selected date") + "." });
-                    }
-                });
-                notes.unshift({ title: "Team chat", text: "Open the notification or chat icon to review team updates." });
-                notes.slice(0, 8).forEach(function (note) {
-                    var item = document.createElement("article");
-                    item.className = "notification-item";
-                    item.innerHTML = "<strong>" + note.title + "</strong><span>" + note.text + "</span>";
-                    list.appendChild(item);
-                });
+                qs("[data-stat-sent]").textContent = requests.filter(function (request) { return String(request.requesterTeamId || "") === String(teamId); }).length;
+                renderNextBooking(bookings, profile);
+                renderRequests(profile);
+                renderBookings(bookings, profile);
+                renderNotifications(bookings, requests, profile);
             }
             document.addEventListener("click", function (event) {
                 var accept = event.target.closest("[data-accept-request]");
@@ -238,6 +393,22 @@
                 }
                 if (decline) {
                     respondToRequest(decline.getAttribute("data-decline-request"), "Declined");
+                }
+                var cancel = event.target.closest("[data-cancel-booking]");
+                if (cancel) cancelBooking(cancel.getAttribute("data-cancel-booking"));
+                var filter = event.target.closest("[data-request-filter]");
+                if (filter) {
+                    activeRequestFilter = filter.getAttribute("data-request-filter");
+                    document.querySelectorAll("[data-request-filter]").forEach(function (button) { button.classList.toggle("is-active", button === filter); });
+                    render();
+                }
+                if (event.target.closest("[data-dashboard-read-all]")) {
+                    localStorage.setItem(readKey, String(Date.now()));
+                    render();
+                }
+                if (event.target.closest("[data-open-team-chat]")) {
+                    var chatToggle = qs("[data-team-chat-toggle]");
+                    if (chatToggle) chatToggle.click();
                 }
             });
             render();

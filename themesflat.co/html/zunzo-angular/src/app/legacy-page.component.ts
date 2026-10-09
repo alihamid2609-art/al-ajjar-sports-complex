@@ -62,6 +62,9 @@ export class LegacyPageComponent implements OnInit, OnDestroy {
     this.subscription = this.route.data.subscribe((data) => {
       this.setPage(data['page'] as string || 'index.html');
     });
+    this.subscription.add(this.route.queryParams.subscribe(() => {
+      this.setPage(this.route.snapshot.data['page'] as string || 'index.html');
+    }));
   }
 
   ngOnDestroy(): void {
@@ -74,6 +77,8 @@ export class LegacyPageComponent implements OnInit, OnDestroy {
     const frame = this.legacyFrame?.nativeElement;
     const documentRef = frame?.contentDocument;
     if (!documentRef) return;
+
+    this.rewriteFrameLinks(documentRef);
 
     const frameRoute = this.routeFromHref(frame.contentWindow?.location.href || '');
     if (frameRoute && frameRoute !== this.router.url) {
@@ -100,12 +105,23 @@ export class LegacyPageComponent implements OnInit, OnDestroy {
 
   private setPage(page: string): void {
     this.frameClickCleanup?.();
-    const nextPageUrl = `/legacy/${page}`;
+    const bookingId = this.route.snapshot.queryParamMap.get('id');
+    const query = bookingId && page === 'event-details.html' ? `?id=${encodeURIComponent(bookingId)}` : '';
+    const nextPageUrl = `/legacy/${page}${query}`;
     this.pageUrl = this.sanitizer.bypassSecurityTrustResourceUrl(nextPageUrl);
     const frame = this.legacyFrame?.nativeElement;
     if (frame) {
       frame.src = nextPageUrl;
     }
+  }
+
+  private rewriteFrameLinks(documentRef: Document): void {
+    documentRef.querySelectorAll<HTMLAnchorElement>('a[href]').forEach((link) => {
+      const route = this.routeFromHref(link.getAttribute('href') || '');
+      if (route) {
+        link.setAttribute('href', route);
+      }
+    });
   }
 
   private routeFromHref(href: string): string | null {
@@ -115,8 +131,9 @@ export class LegacyPageComponent implements OnInit, OnDestroy {
 
     try {
       const url = new URL(href, 'http://local/');
+      if (this.pageByRoute[url.pathname]) return url.pathname + url.search;
       const page = url.pathname.split('/').pop() || 'index.html';
-      return this.routeByPage[page] || null;
+      return this.routeByPage[page] ? this.routeByPage[page] + url.search : null;
     } catch {
       const page = href.split('?')[0].split('#')[0].split('/').pop() || 'index.html';
       return this.routeByPage[page] || null;

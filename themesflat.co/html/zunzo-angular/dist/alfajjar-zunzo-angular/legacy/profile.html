@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/responsive.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/colors/color1.css" id="colors">
     <link rel="stylesheet" type="text/css" href="stylesheets/profile.css">
-    <link href="images/icon/favicon.png" rel="shortcut icon">
+    <link href="images/al-fajar/facicon2.png?v=20261009" rel="shortcut icon">
 </head>
 
 <body class="header-sticky team-profile-page">
@@ -33,6 +33,7 @@
                     <div class="profile-tabs">
                         <button type="button" class="profile-tab active" data-profile-tab="team">Team Details</button>
                         <button type="button" class="profile-tab" data-profile-tab="members">Team Members</button>
+                        <button type="button" class="profile-tab" data-profile-tab="preferences">Match Preferences</button>
                         <button type="button" class="profile-tab" data-profile-tab="address">Address Details</button>
                     </div>
                 </aside>
@@ -48,8 +49,16 @@
                                     <input type="text" name="teamName" required>
                                 </div>
                                 <div class="profile-field">
+                                    <label>Team Short Name</label>
+                                    <input type="text" name="shortName" maxlength="12" placeholder="e.g. AFS">
+                                </div>
+                                <div class="profile-field">
                                     <label>Captain Name</label>
                                     <input type="text" name="captainName" required>
+                                </div>
+                                <div class="profile-field">
+                                    <label>Vice Captain</label>
+                                    <input type="text" name="viceCaptain" placeholder="Optional">
                                 </div>
                                 <div class="profile-field">
                                     <label>Registered Email</label>
@@ -60,12 +69,37 @@
                                     <input type="tel" name="phone">
                                 </div>
                                 <div class="profile-field">
+                                    <label>WhatsApp Number</label>
+                                    <input type="tel" name="whatsapp" placeholder="For fixture updates">
+                                </div>
+                                <div class="profile-field">
                                     <label>Sport Category</label>
                                     <select name="category">
                                         <option>Cricket</option>
                                         <option>Football</option>
+                                        <option>Futsal</option>
+                                        <option>Basketball</option>
+                                        <option>Volleyball</option>
                                         <option>Multi Sport</option>
                                     </select>
+                                </div>
+                                <div class="profile-field">
+                                    <label>Team Level</label>
+                                    <select name="teamLevel">
+                                        <option value="">Select team level</option>
+                                        <option>Recreational</option>
+                                        <option>Competitive</option>
+                                        <option>Academy</option>
+                                        <option>Corporate</option>
+                                    </select>
+                                </div>
+                                <div class="profile-field">
+                                    <label>Founded Year</label>
+                                    <input type="number" name="foundedYear" min="1900" max="2099" placeholder="e.g. 2021">
+                                </div>
+                                <div class="profile-field">
+                                    <label>Home Ground</label>
+                                    <input type="text" name="homeGround" placeholder="Optional">
                                 </div>
                                 <div class="profile-field team-logo-field">
                                     <label>Team Logo</label>
@@ -121,7 +155,8 @@
                                     <tr>
                                         <th scope="col">Member</th>
                                         <th scope="col">Role</th>
-                                        <th scope="col">Phone</th>
+                                        <th scope="col">Contact</th>
+                                        <th scope="col">Jersey</th>
                                         <th scope="col">Status</th>
                                         <th scope="col"><span class="visually-hidden">Actions</span></th>
                                     </tr>
@@ -130,6 +165,52 @@
                             </table>
                             <p class="member-empty" data-member-empty hidden>No team members match these filters.</p>
                         </div>
+                    </div>
+
+                    <div class="profile-view" data-profile-view="preferences">
+                        <h2>Match Preferences</h2>
+                        <div class="auth-message" data-preferences-message></div>
+                        <form data-preferences-form>
+                            <div class="profile-grid">
+                                <div class="profile-field">
+                                    <label>Preferred Facility</label>
+                                    <select name="preferredFacility">
+                                        <option value="">No preference</option>
+                                        <option>Cricket Stadium</option>
+                                        <option>Indoor Arena</option>
+                                    </select>
+                                </div>
+                                <div class="profile-field">
+                                    <label>Preferred Match Time</label>
+                                    <select name="preferredTime">
+                                        <option value="">No preference</option>
+                                        <option>Morning</option>
+                                        <option>Afternoon</option>
+                                        <option>Evening</option>
+                                        <option>Night</option>
+                                    </select>
+                                </div>
+                                <div class="profile-field">
+                                    <label>Typical Match Format</label>
+                                    <input type="text" name="matchFormat" placeholder="e.g. 20 overs, 7-a-side">
+                                </div>
+                                <div class="profile-field">
+                                    <label>Jersey Colours</label>
+                                    <input type="text" name="jerseyColors" placeholder="e.g. Green and white">
+                                </div>
+                                <div class="profile-field">
+                                    <label>Available Days</label>
+                                    <input type="text" name="availableDays" placeholder="e.g. Friday and Sunday">
+                                </div>
+                                <div class="profile-field">
+                                    <label>Match Request Notes</label>
+                                    <textarea name="matchPreferences" placeholder="Share any conditions teams should know before accepting a fixture."></textarea>
+                                </div>
+                            </div>
+                            <div class="profile-actions">
+                                <button type="submit" class="flat-button">Save preferences</button>
+                            </div>
+                        </form>
                     </div>
 
                     <div class="profile-view" data-profile-view="address">
@@ -148,6 +229,14 @@
                                 <div class="profile-field">
                                     <label>Area</label>
                                     <input type="text" name="area">
+                                </div>
+                                <div class="profile-field">
+                                    <label>District</label>
+                                    <input type="text" name="district">
+                                </div>
+                                <div class="profile-field">
+                                    <label>Postal Code</label>
+                                    <input type="text" name="postalCode">
                                 </div>
                                 <div class="profile-field">
                                     <label>Notes</label>
@@ -198,6 +287,14 @@
                             <input id="memberPhone" type="tel" name="phone" autocomplete="tel">
                         </div>
                         <div class="profile-field">
+                            <label for="memberEmail">Email</label>
+                            <input id="memberEmail" type="email" name="email" autocomplete="email">
+                        </div>
+                        <div class="profile-field">
+                            <label for="memberJersey">Jersey Number</label>
+                            <input id="memberJersey" type="number" name="jerseyNumber" min="0" max="999">
+                        </div>
+                        <div class="profile-field">
                             <label for="memberStatus">Status</label>
                             <select id="memberStatus" name="status">
                                 <option>Active</option>
@@ -227,6 +324,8 @@
                 <dl class="member-details-list">
                     <div><dt>Role</dt><dd data-detail-role></dd></div>
                     <div><dt>Phone</dt><dd data-detail-phone></dd></div>
+                    <div><dt>Email</dt><dd data-detail-email></dd></div>
+                    <div><dt>Jersey</dt><dd data-detail-jersey></dd></div>
                     <div><dt>Status</dt><dd data-detail-status></dd></div>
                 </dl>
             </div>
