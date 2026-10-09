@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+
+<head>
+    <meta charset="utf-8">
+    <title>Team Profile - Al Fajjar Sports Complex</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/responsive.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/colors/color1.css" id="colors">
+    <link rel="stylesheet" type="text/css" href="stylesheets/profile.css">
+    <link href="images/icon/favicon.png" rel="shortcut icon">
+</head>
+
+<body class="header-sticky team-profile-page">
+    <div class="preload preload-container">
+        <div class="swapping-squares-spinner">
+            <div class="square"></div>
+            <div class="square"></div>
+            <div class="square"></div>
+            <div class="square"></div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="javascript/base.js" data-include="header"></script>
+
+    <main class="profile-shell">
+        <div class="themeflat-container">
+            <div class="profile-layout">
+                <aside class="profile-sidebar">
+                    <h2>Team Profile</h2>
+                    <div class="profile-tabs">
+                        <button type="button" class="profile-tab active" data-profile-tab="team">Team Details</button>
+                        <button type="button" class="profile-tab" data-profile-tab="members">Team Members</button>
+                        <button type="button" class="profile-tab" data-profile-tab="address">Address Details</button>
+                    </div>
+                </aside>
+
+                <section class="profile-panel">
+                    <div class="profile-view active" data-profile-view="team">
+                        <h2>Team Details</h2>
+                        <div class="auth-message" data-profile-message></div>
+                        <form data-team-form>
+                            <div class="profile-grid">
+                                <div class="profile-field">
+                                    <label>Team Name</label>
+                                    <input type="text" name="teamName" required>
+                                </div>
+                                <div class="profile-field">
+                                    <label>Captain Name</label>
+                                    <input type="text" name="captainName" required>
+                                </div>
+                                <div class="profile-field">
+                                    <label>Registered Email</label>
+                                    <input type="email" name="email" required>
+                                </div>
+                                <div class="profile-field">
+                                    <label>Phone</label>
+                                    <input type="tel" name="phone">
+                                </div>
+                                <div class="profile-field">
+                                    <label>Sport Category</label>
+                                    <select name="category">
+                                        <option>Cricket</option>
+                                        <option>Football</option>
+                                        <option>Multi Sport</option>
+                                    </select>
+                                </div>
+                                <div class="profile-field team-logo-field">
+                                    <label>Team Logo</label>
+                                    <div class="team-logo-control">
+                                        <span class="team-logo-preview" data-team-logo-preview>T</span>
+                                        <input type="file" name="teamLogo" accept="image/*" data-team-logo-input>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="profile-actions">
+                                <button type="submit" class="flat-button">Update Team</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="profile-view" data-profile-view="members">
+                        <div class="members-heading">
+                            <div>
+                                <h2>Team Members</h2>
+                                <p class="members-summary" data-member-count></p>
+                            </div>
+                            <button type="button" class="flat-button" data-add-member>+ Add Member</button>
+                        </div>
+                        <div class="member-toolbar">
+                            <label class="member-search">
+                                <span class="visually-hidden">Search team members</span>
+                                <input type="search" data-member-search placeholder="Search by name or phone" autocomplete="off">
+                            </label>
+                            <label class="member-filter">
+                                <span class="visually-hidden">Filter by role</span>
+                                <select data-member-role-filter>
+                                    <option value="">All roles</option>
+                                    <option>Captain</option>
+                                    <option>Batsman</option>
+                                    <option>Bowler</option>
+                                    <option>All Rounder</option>
+                                    <option>Wicket Keeper</option>
+                                    <option>Other</option>
+                                </select>
+                            </label>
+                            <label class="member-filter">
+                                <span class="visually-hidden">Filter by status</span>
+                                <select data-member-status-filter>
+                                    <option value="">All statuses</option>
+                                    <option>Active</option>
+                                    <option>Inactive</option>
+                                </select>
+                            </label>
+                        </div>
+                        <div class="team-table-wrap">
+                            <table class="team-table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Member</th>
+                                        <th scope="col">Role</th>
+                                        <th scope="col">Phone</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col"><span class="visually-hidden">Actions</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody data-member-list></tbody>
+                            </table>
+                            <p class="member-empty" data-member-empty hidden>No team members match these filters.</p>
+                        </div>
+                    </div>
+
+                    <div class="profile-view" data-profile-view="address">
+                        <h2>Address Details</h2>
+                        <div class="auth-message" data-address-message></div>
+                        <form data-address-form>
+                            <div class="profile-grid">
+                                <div class="profile-field">
+                                    <label>Address</label>
+                                    <input type="text" name="address" placeholder="House, street, block">
+                                </div>
+                                <div class="profile-field">
+                                    <label>City</label>
+                                    <input type="text" name="city">
+                                </div>
+                                <div class="profile-field">
+                                    <label>Area</label>
+                                    <input type="text" name="area">
+                                </div>
+                                <div class="profile-field">
+                                    <label>Notes</label>
+                                    <textarea name="notes" placeholder="Any extra team or booking notes"></textarea>
+                                </div>
+                            </div>
+                            <div class="profile-actions">
+                                <button type="submit" class="flat-button">Update Address</button>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <div class="modal fade member-modal" id="memberFormModal" tabindex="-1" aria-labelledby="memberFormTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="member-modal-heading">
+                    <div>
+                        <p class="member-eyebrow">Team roster</p>
+                        <h2 id="memberFormTitle">Add team member</h2>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form data-member-form>
+                    <input type="hidden" name="id">
+                    <div class="member-modal-fields">
+                        <div class="profile-field">
+                            <label for="memberName">Member name</label>
+                            <input id="memberName" type="text" name="name" autocomplete="name" required>
+                        </div>
+                        <div class="profile-field">
+                            <label for="memberRole">Role</label>
+                            <select id="memberRole" name="role" required>
+                                <option value="" disabled selected>Select a role</option>
+                                <option>Captain</option>
+                                <option>Batsman</option>
+                                <option>Bowler</option>
+                                <option>All Rounder</option>
+                                <option>Wicket Keeper</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div class="profile-field">
+                            <label for="memberPhone">Phone</label>
+                            <input id="memberPhone" type="tel" name="phone" autocomplete="tel">
+                        </div>
+                        <div class="profile-field">
+                            <label for="memberStatus">Status</label>
+                            <select id="memberStatus" name="status">
+                                <option>Active</option>
+                                <option>Inactive</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="member-modal-actions">
+                        <button type="button" class="member-secondary-button" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="flat-button">Save member</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade member-modal" id="memberDetailsModal" tabindex="-1" aria-labelledby="memberDetailsTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="member-modal-heading">
+                    <div>
+                        <p class="member-eyebrow">Team roster</p>
+                        <h2 id="memberDetailsTitle" data-detail-name>Member details</h2>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <dl class="member-details-list">
+                    <div><dt>Role</dt><dd data-detail-role></dd></div>
+                    <div><dt>Phone</dt><dd data-detail-phone></dd></div>
+                    <div><dt>Status</dt><dd data-detail-status></dd></div>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade member-modal" id="deleteMemberModal" tabindex="-1" aria-labelledby="deleteMemberTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+                <div class="member-modal-heading">
+                    <div>
+                        <p class="member-eyebrow">Please confirm</p>
+                        <h2 id="deleteMemberTitle">Delete member?</h2>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <p class="member-delete-copy">This will permanently remove <strong data-delete-member-name></strong> from your team roster.</p>
+                <div class="member-modal-actions">
+                    <button type="button" class="member-secondary-button" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="member-danger-button" data-confirm-delete>Delete member</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="javascript/base.js" data-include="footer"></script>
+
+    <a class="go-top">
+        <i class="icon-ctrl"></i>
+    </a>
+
+    <script type="text/javascript" src="javascript/jquery.min.js"></script>
+    <script type="text/javascript" src="javascript/bootstrap.min.js"></script>
+    <script type="text/javascript" src="javascript/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="javascript/jquery.cookie.js"></script>
+    <script type="text/javascript" src="javascript/swiper-bundle.min.js"></script>
+    <script type="text/javascript" src="javascript/owl.carousel.js"></script>
+    <script type="text/javascript" src="javascript/wow.min.js"></script>
+    <script type="text/javascript" src="javascript/jquery-waypoints.js"></script>
+    <script type="text/javascript" src="javascript/jquery-countTo.js"></script>
+    <script type="text/javascript" src="javascript/auth-team.js"></script>
+    <script type="text/javascript" src="javascript/main.js"></script>
+</body>
+
+</html>
